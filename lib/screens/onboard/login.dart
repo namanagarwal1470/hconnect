@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class loginpage extends StatefulWidget {
   loginpage({Key? key}) : super(key: key);
@@ -10,8 +11,25 @@ class loginpage extends StatefulWidget {
 class _loginpageState extends State<loginpage> {
   TextEditingController enrollno = TextEditingController();
   TextEditingController password = TextEditingController();
+  List topicsnames = [];
+
   bool warden = true;
   bool student = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetch_topics();
+  }
+
+  fetch_topics() async {
+    List<String> all_topics = await fetch_all_topics();
+    setState(() {
+      topicsnames = all_topics;
+      print(all_topics);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +92,15 @@ class _loginpageState extends State<loginpage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  auth(enrollno, context, warden ? "warden id" : "enrollno"),
+                  auth(enrollno, context,
+                      warden ? "Warden Id" : "Enrollment no"),
                 ],
               ),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  auth(password, context, "password"),
+                  auth(password, context, "Password"),
                 ],
               ),
               SizedBox(height: 20),
@@ -168,5 +187,19 @@ class _loginpageState extends State<loginpage> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ));
+  }
+
+  Future<List<String>> fetch_all_topics() async {
+    try {
+      CollectionReference topicsdata =
+          await FirebaseFirestore.instance.collection('studentprofile');
+      List<DocumentSnapshot> topicinfodocs = (await topicsdata.get()).docs;
+      List<String> topics =
+          topicinfodocs.map((e) => e['enrollno'] as String).toList();
+      return topics;
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }
