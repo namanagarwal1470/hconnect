@@ -54,7 +54,7 @@ class _splashState extends State<splash> {
                     child: Center(
                       child: Text(
                         "H-connect",
-                        style: TextStyle(color: Colors.blue, fontSize: 70),
+                        style: TextStyle(color: Colors.blue, fontSize: 50),
                       ),
                     ),
                     color: Colors.white)

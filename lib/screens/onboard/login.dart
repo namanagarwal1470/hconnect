@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hconnect/screens/onboard/homepage.dart';
 
 class loginpage extends StatefulWidget {
   loginpage({Key? key}) : super(key: key);
@@ -11,24 +12,18 @@ class loginpage extends StatefulWidget {
 class _loginpageState extends State<loginpage> {
   TextEditingController enrollno = TextEditingController();
   TextEditingController password = TextEditingController();
-  List topicsnames = [];
 
   bool warden = true;
   bool student = false;
+  List studentenroll = [];
+  List studentpassword = [];
+  bool showerror = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetch_topics();
-  }
-
-  fetch_topics() async {
-    List<String> all_topics = await fetch_all_topics();
-    setState(() {
-      topicsnames = all_topics;
-      print(all_topics);
-    });
+    fetch_all_data();
   }
 
   @override
@@ -37,14 +32,14 @@ class _loginpageState extends State<loginpage> {
         body: ListView(
       children: [
         Container(
-          height: (MediaQuery.of(context).size.height) * 0.65,
+          height: (MediaQuery.of(context).size.height),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.blue[700],
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(50))),
+            color: Colors.white,
+          ),
           child: ListView(
             children: [
-              SizedBox(height: 100),
+              SizedBox(height: 10),
               headline(),
               SizedBox(height: 20),
               Row(
@@ -88,22 +83,24 @@ class _loginpageState extends State<loginpage> {
                   )
                 ],
               ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  auth(enrollno, context,
-                      warden ? "Warden Id" : "Enrollment no"),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  auth(password, context, "Password"),
-                ],
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
+              auth(
+                  enrollno, context, warden ? "Warden Id" : "Enrollment no", 0),
+              auth(password, context, "Password", 1),
+              SizedBox(height: 10),
+              showerror
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Wrong password entered",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                            )),
+                      ],
+                    )
+                  : Text(""),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -124,54 +121,54 @@ class _loginpageState extends State<loginpage> {
         child: Center(
           child: Text(
             "H-Connect",
-            style: TextStyle(color: Colors.white, fontSize: 60),
+            style: TextStyle(color: Colors.blue, fontSize: 60),
           ),
         ));
   }
 
   Widget auth(TextEditingController enrollcontroller, BuildContext context,
-      String text) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.white),
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 40,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(width: 15),
-          Container(
-              width: (MediaQuery.of(context).size.width) * 0.6,
-              height: 35,
-              child: Center(
-                child: TextField(
-                  style: TextStyle(fontSize: 20),
-                  controller: enrollcontroller,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: text,
-                    border: InputBorder.none,
-                  ),
-                ),
-              ))
-        ],
+      String text, int k) {
+    return Padding(
+      padding: EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 15),
+      child: TextField(
+        controller: enrollcontroller,
+        obscureText: k == 1 ? true : false,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: text,
+          hintText: text,
+        ),
       ),
     );
   }
 
   Widget loginbutton(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        for (int i = 0; i < studentenroll.length; i++) {
+          if (enrollno.text == studentenroll[i]) {
+            if (password.text == studentpassword[i]) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => home()),
+              );
+            } else {
+              setState(() {
+                showerror = true;
+              });
+            }
+          }
+        }
+      },
       child: Container(
         child: Center(
           child: Text(
             "Login",
-            style: TextStyle(color: Colors.blue, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+            borderRadius: BorderRadius.circular(10), color: Colors.blue),
         width: MediaQuery.of(context).size.width * 0.3,
         height: 40,
       ),
@@ -184,19 +181,24 @@ class _loginpageState extends State<loginpage> {
         child: Center(
           child: Text(
             "Forget Password?",
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.blue, fontSize: 20),
           ),
         ));
   }
 
-  Future<List<String>> fetch_all_topics() async {
+  fetch_all_data() async {
     try {
-      CollectionReference topicsdata =
+      CollectionReference data =
           await FirebaseFirestore.instance.collection('studentprofile');
-      List<DocumentSnapshot> topicinfodocs = (await topicsdata.get()).docs;
-      List<String> topics =
-          topicinfodocs.map((e) => e['enrollno'] as String).toList();
-      return topics;
+      List<DocumentSnapshot> studentinfodocs = (await data.get()).docs;
+      List<String> enrollno =
+          studentinfodocs.map((e) => e['enrollno'] as String).toList();
+      List<String> password =
+          studentinfodocs.map((e) => e['password'] as String).toList();
+      setState(() {
+        studentenroll = enrollno;
+        studentpassword = password;
+      });
     } catch (e) {
       print(e.toString());
       return [];
