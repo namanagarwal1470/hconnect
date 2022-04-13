@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hconnect/screens/onboard/homepage.dart';
+import 'package:hconnect/screens/studenthomepage.dart';
+import 'package:hconnect/screens/wardenhomepage.dart';
 
 class loginpage extends StatefulWidget {
   loginpage({Key? key}) : super(key: key);
@@ -13,17 +14,17 @@ class _loginpageState extends State<loginpage> {
   TextEditingController enrollno = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  bool warden = true;
-  bool student = false;
-  List studentenroll = [];
-  List studentpassword = [];
+  List id = [];
+  List idpassword = [];
+  List usertype = [];
   bool showerror = false;
+  Map<String, String> k = {};
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     fetch_all_data();
+    super.initState();
   }
 
   @override
@@ -39,53 +40,10 @@ class _loginpageState extends State<loginpage> {
           ),
           child: ListView(
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               headline(),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: this.warden,
-                    onChanged: (warden) {
-                      setState(() {
-                        if (this.student == true) {
-                          this.warden = warden!;
-                          this.student = false;
-                        }
-                      });
-                    },
-                  ),
-                  Text(
-                    "Warden/Admin login",
-                    style: TextStyle(color: Colors.black, fontSize: 23),
-                  )
-                ],
-              ),
-              SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: this.student,
-                    onChanged: (student) {
-                      setState(() {
-                        if (this.warden == true) {
-                          this.student = student!;
-                          this.warden = false;
-                        }
-                      });
-                    },
-                  ),
-                  Text(
-                    "Student login",
-                    style: TextStyle(color: Colors.black, fontSize: 23),
-                  )
-                ],
-              ),
-              SizedBox(height: 10),
-              auth(
-                  enrollno, context, warden ? "Warden Id" : "Enrollment no", 0),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+              auth(enrollno, context, "Id", 0),
               auth(password, context, "Password", 1),
               SizedBox(height: 10),
               showerror
@@ -121,7 +79,7 @@ class _loginpageState extends State<loginpage> {
         child: Center(
           child: Text(
             "H-Connect",
-            style: TextStyle(color: Colors.blue, fontSize: 60),
+            style: TextStyle(color: Colors.blue, fontSize: 50),
           ),
         ));
   }
@@ -132,12 +90,19 @@ class _loginpageState extends State<loginpage> {
       padding: EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 15),
       child: TextField(
         controller: enrollcontroller,
+        style: TextStyle(fontSize: 20),
+        decoration: new InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(30.0),
+              ),
+            ),
+            filled: true,
+            hintStyle: new TextStyle(color: Colors.grey[700]),
+            labelText: text,
+            hintText: text,
+            fillColor: Colors.white70),
         obscureText: k == 1 ? true : false,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: text,
-          hintText: text,
-        ),
       ),
     );
   }
@@ -145,20 +110,7 @@ class _loginpageState extends State<loginpage> {
   Widget loginbutton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        for (int i = 0; i < studentenroll.length; i++) {
-          if (enrollno.text == studentenroll[i]) {
-            if (password.text == studentpassword[i]) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => home()),
-              );
-            } else {
-              setState(() {
-                showerror = true;
-              });
-            }
-          }
-        }
+        routenavigator();
       },
       child: Container(
         child: Center(
@@ -187,21 +139,55 @@ class _loginpageState extends State<loginpage> {
   }
 
   fetch_all_data() async {
+    Map<String, String> r = {};
     try {
       CollectionReference data =
           await FirebaseFirestore.instance.collection('studentprofile');
       List<DocumentSnapshot> studentinfodocs = (await data.get()).docs;
+      print(studentinfodocs);
       List<String> enrollno =
           studentinfodocs.map((e) => e['enrollno'] as String).toList();
       List<String> password =
           studentinfodocs.map((e) => e['password'] as String).toList();
+      List<String> type =
+          studentinfodocs.map((e) => e['type'] as String).toList();
+      for (int i = 0; i < enrollno.length; i++) {
+        r[enrollno[i]] = password[i];
+      }
       setState(() {
-        studentenroll = enrollno;
-        studentpassword = password;
+        id = enrollno;
+        idpassword = password;
+        usertype = type;
+        k = r;
+        print(k);
       });
     } catch (e) {
       print(e.toString());
       return [];
+    }
+  }
+
+  routenavigator() {
+    for (int i = 0; i < id.length; i++) {
+      if (enrollno.text == id[i]) {
+        if (password.text == idpassword[i]) {
+          if (usertype[i] == "admin") {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => wardenhome()),
+                (Route<dynamic> route) => false);
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => studenthome()),
+                (Route<dynamic> route) => false);
+          }
+        } else {
+          setState(() {
+            showerror = true;
+          });
+        }
+      }
     }
   }
 }
