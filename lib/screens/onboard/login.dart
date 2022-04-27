@@ -174,12 +174,12 @@ class _loginpageState extends State<loginpage> {
           if (usertype[i] == "admin") {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => wardenhome()),
+                MaterialPageRoute(builder: (context) => wardenhomepage()),
                 (Route<dynamic> route) => false);
           } else {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => studenthome()),
+                MaterialPageRoute(builder: (context) => studenthomepage()),
                 (Route<dynamic> route) => false);
           }
         } else {
