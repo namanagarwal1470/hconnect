@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ComplainForm extends StatefulWidget {
+  String enrollno;
+  ComplainForm(this.enrollno);
+
   @override
   _ComplainFormState createState() => _ComplainFormState();
 }
 
 class _ComplainFormState extends State<ComplainForm> {
-  GlobalKey<FormState> _key = new GlobalKey();
-  bool _autovalidate = false;
   String complain_type = 'Electricity';
-  String message = 'helo';
+  TextEditingController message = TextEditingController();
   List<DropdownMenuItem<String>> items = [
     new DropdownMenuItem(
       child: new Text('Electricity'),
@@ -96,7 +98,7 @@ class _ComplainFormState extends State<ComplainForm> {
           ],
         ),
         SizedBox(height: 30),
-        new TextFormField(
+        new TextField(
           decoration: new InputDecoration(
             hintText: 'Message',
             border: new OutlineInputBorder(
@@ -106,7 +108,7 @@ class _ComplainFormState extends State<ComplainForm> {
             ),
             filled: true,
           ),
-          onChanged: (val) {},
+          controller: message,
           maxLines: 5,
           maxLength: 256,
         ),
@@ -121,7 +123,9 @@ class _ComplainFormState extends State<ComplainForm> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            senddata();
+          },
           child: Container(
             child: Center(
               child: Text(
@@ -137,5 +141,19 @@ class _ComplainFormState extends State<ComplainForm> {
         ),
       ],
     );
+  }
+
+  void senddata() async {
+    CollectionReference complaint =
+        FirebaseFirestore.instance.collection('complaints');
+    complaint.add({
+      'enrollno': widget.enrollno,
+      'type': complain_type,
+      'complaint': message.text
+    });
+    setState(() {
+      complain_type = 'Electricity';
+      message.clear();
+    });
   }
 }

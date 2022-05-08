@@ -31,8 +31,10 @@ class _studenthomepageState extends State<studenthomepage> {
             children: [
               GestureDetector(
                 onTap: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LeaveForm()))
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LeaveForm(widget.enrollno)))
                 },
                 child: Container(
                     height: 150,
@@ -45,8 +47,10 @@ class _studenthomepageState extends State<studenthomepage> {
               ),
               GestureDetector(
                 onTap: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ComplainForm()))
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ComplainForm(widget.enrollno)))
                 },
                 child: Container(
                     height: 150,

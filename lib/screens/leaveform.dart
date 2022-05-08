@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LeaveForm extends StatefulWidget {
+  String enrollno;
+  LeaveForm(this.enrollno);
   @override
   _LeaveFormState createState() => _LeaveFormState();
 }
 
 class _LeaveFormState extends State<LeaveForm> {
-  GlobalKey<FormState> _key = new GlobalKey();
+  TextEditingController departdate = TextEditingController();
+  TextEditingController arrivaldate = TextEditingController();
+  TextEditingController departtime = TextEditingController();
+  TextEditingController arrivaltime = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController reason = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,43 +56,13 @@ class _LeaveFormState extends State<LeaveForm> {
                 Radius.circular(15.0),
               ),
             ),
-            icon: const Icon(Icons.person),
-            filled: true,
-            hintText: 'Enter your first and last name',
-            labelText: 'Name',
-          ),
-          onChanged: (value) {},
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
-            filled: true,
-            icon: const Icon(Icons.person),
-            hintText: 'Enter your enrollno',
-            labelText: 'Enrollno',
-          ),
-          onChanged: (value) {},
-        ),
-        SizedBox(height: 20),
-        TextField(
-          decoration: InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
-            ),
             filled: true,
             icon: const Icon(Icons.calendar_today),
             hintText: 'Enter the date',
             labelText: 'Date of Departure',
           ),
           keyboardType: TextInputType.datetime,
-          onChanged: (value) {},
+          controller: departdate,
         ),
         SizedBox(height: 20),
         TextField(
@@ -100,7 +78,7 @@ class _LeaveFormState extends State<LeaveForm> {
             labelText: 'Date of Arrival',
           ),
           keyboardType: TextInputType.datetime,
-          onChanged: (value) {},
+          controller: arrivaldate,
         ),
         SizedBox(height: 20),
         TextField(
@@ -116,7 +94,7 @@ class _LeaveFormState extends State<LeaveForm> {
             labelText: 'Departure Time',
           ),
           keyboardType: TextInputType.datetime,
-          onChanged: (value) {},
+          controller: departtime,
         ),
         SizedBox(height: 20),
         TextField(
@@ -132,7 +110,7 @@ class _LeaveFormState extends State<LeaveForm> {
             labelText: 'In Time',
           ),
           keyboardType: TextInputType.datetime,
-          onChanged: (value) {},
+          controller: arrivaltime,
         ),
         SizedBox(height: 20),
         TextField(
@@ -148,7 +126,7 @@ class _LeaveFormState extends State<LeaveForm> {
             labelText: 'Address',
           ),
           keyboardType: TextInputType.text,
-          onChanged: (value) {},
+          controller: address,
         ),
         SizedBox(height: 20),
         TextField(
@@ -166,7 +144,7 @@ class _LeaveFormState extends State<LeaveForm> {
             hintText: 'Enter the Reason of leave',
             labelText: 'Reason',
           ),
-          onChanged: (value) {},
+          controller: reason,
         ),
         SizedBox(height: 40),
         Submitbutton(context),
@@ -179,7 +157,9 @@ class _LeaveFormState extends State<LeaveForm> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            senddata();
+          },
           child: Container(
             child: Center(
               child: Text(
@@ -195,5 +175,27 @@ class _LeaveFormState extends State<LeaveForm> {
         ),
       ],
     );
+  }
+
+  void senddata() async {
+    CollectionReference leaves =
+        FirebaseFirestore.instance.collection('leaves');
+    leaves.add({
+      'enrollno': widget.enrollno,
+      'departdate': departdate.text,
+      'arrivaldate': arrivaldate.text,
+      'departtime': departtime.text,
+      'arrivaltime': arrivaltime.text,
+      'address': address.text,
+      'reason': reason.text
+    });
+    setState(() {
+      departdate.clear();
+      departtime.clear();
+      arrivaldate.clear();
+      arrivaltime.clear();
+      address.clear();
+      reason.clear();
+    });
   }
 }
