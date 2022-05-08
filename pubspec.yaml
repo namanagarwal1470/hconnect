@@ -38,6 +38,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   font_awesome_flutter:
+  shared_preferences:
 
 
 dev_dependencies:

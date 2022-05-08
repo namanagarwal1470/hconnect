@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hconnect/screens/studenthomepage.dart';
 import 'package:hconnect/screens/wardenhomepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginpage extends StatefulWidget {
   loginpage({Key? key}) : super(key: key);
@@ -172,14 +173,20 @@ class _loginpageState extends State<loginpage> {
       if (enrollno.text == id[i]) {
         if (password.text == idpassword[i]) {
           if (usertype[i] == "admin") {
+            add_user(enrollno.text, usertype[i]);
+
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => wardenhomepage()),
+                MaterialPageRoute(
+                    builder: (context) => wardenhomepage(enrollno.text)),
                 (Route<dynamic> route) => false);
           } else {
+            add_user(enrollno.text, usertype[i]);
+
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => studenthomepage()),
+                MaterialPageRoute(
+                    builder: (context) => studenthomepage(enrollno.text)),
                 (Route<dynamic> route) => false);
           }
         } else {
@@ -188,6 +195,16 @@ class _loginpageState extends State<loginpage> {
           });
         }
       }
+    }
+  }
+
+  void add_user(String en, String typeof) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('enroll', en);
+      await prefs.setString('type', typeof);
+    } catch (e) {
+      print("Error while adding user data check preferences");
     }
   }
 }

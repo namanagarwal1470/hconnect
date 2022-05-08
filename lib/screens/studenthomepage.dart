@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hconnect/screens/complaintform.dart';
+import 'package:hconnect/screens/leaveform.dart';
+import 'package:hconnect/screens/onboard/login.dart';
+import 'package:hconnect/screens/studentprofile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class studenthomepage extends StatefulWidget {
-  studenthomepage({Key? key}) : super(key: key);
+  String enrollno;
+  studenthomepage(this.enrollno);
 
   @override
   State<studenthomepage> createState() => _studenthomepageState();
@@ -24,14 +30,32 @@ class _studenthomepageState extends State<studenthomepage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
+                onTap: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LeaveForm()))
+                },
                 child: Container(
                     height: 150,
-                    margin: EdgeInsets.all(20),
-                    width: double.infinity,
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20)),
-                    child: Center(child: Text("Student profile"))),
+                    margin: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Center(child: Text("Apply for leave"))),
+              ),
+              GestureDetector(
+                onTap: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ComplainForm()))
+                },
+                child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Center(child: Text("Register Complaint"))),
               ),
               GestureDetector(
                 child: Container(
@@ -39,17 +63,7 @@ class _studenthomepageState extends State<studenthomepage> {
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(20),
-                    width: double.infinity,
-                    child: Center(child: Text("Complaint Register"))),
-              ),
-              GestureDetector(
-                child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     width: double.infinity,
                     child: Center(child: Text("Warden Details"))),
               )
@@ -75,7 +89,10 @@ class _studenthomepageState extends State<studenthomepage> {
           )),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => studentprofile()));
+          },
           child: ListTile(
             title: Row(
               children: [
@@ -104,7 +121,13 @@ class _studenthomepageState extends State<studenthomepage> {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            removeuser(context);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => loginpage()),
+                (Route<dynamic> route) => false);
+          },
           child: ListTile(
             title: Row(
               children: [
@@ -140,7 +163,7 @@ class _studenthomepageState extends State<studenthomepage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Hi, student",
+        Text("Hi, " + widget.enrollno,
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -153,14 +176,23 @@ class _studenthomepageState extends State<studenthomepage> {
           child: Center(
             child: IconButton(
               padding: EdgeInsets.all(5),
-              icon: Icon(Icons.verified_sharp),
-              iconSize: 15,
+              icon: Icon(Icons.person),
+              iconSize: 30,
               color: Colors.red,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => studentprofile()));
+              },
             ),
           ),
         ),
       ],
     );
+  }
+
+  void removeuser(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("enroll");
+    prefs.remove("type");
   }
 }

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hconnect/screens/complaints.dart';
+import 'package:hconnect/screens/leaves.dart';
+import 'package:hconnect/screens/onboard/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class wardenhomepage extends StatefulWidget {
-  wardenhomepage({Key? key}) : super(key: key);
+  String enrollno;
+  wardenhomepage(this.enrollno);
 
   @override
   State<wardenhomepage> createState() => _wardenhomepageState();
@@ -24,9 +29,13 @@ class _wardenhomepageState extends State<wardenhomepage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => leavepage()));
+                },
                 child: Container(
                     height: 150,
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: Colors.red,
@@ -34,12 +43,16 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     child: Center(child: Text("All leaves"))),
               ),
               GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => complaintpage()));
+                },
                 child: Container(
                     height: 150,
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     width: double.infinity,
                     child: Center(child: Text("All Complaints"))),
               ),
@@ -49,7 +62,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     width: double.infinity,
                     child: Center(child: Text("Room management"))),
               ),
@@ -59,7 +72,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
                     width: double.infinity,
                     child: Center(child: Text("All Students"))),
               )
@@ -114,7 +127,13 @@ class _wardenhomepageState extends State<wardenhomepage> {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            removeuser(context);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => loginpage()),
+                (Route<dynamic> route) => false);
+          },
           child: ListTile(
             title: Row(
               children: [
@@ -150,7 +169,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Hi, warden",
+        Text("Hi, " + widget.enrollno,
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -172,5 +191,11 @@ class _wardenhomepageState extends State<wardenhomepage> {
         ),
       ],
     );
+  }
+
+  void removeuser(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("enroll");
+    prefs.remove("type");
   }
 }

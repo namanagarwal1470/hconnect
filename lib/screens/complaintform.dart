@@ -44,20 +44,21 @@ class _ComplainFormState extends State<ComplainForm> {
     return new Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 40, bottom: 40),
-              child: Text(
-                "Complaint Form",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
+        Container(
+          child: Container(
+              margin: EdgeInsets.all(10),
+              child: Center(
+                child: Text(
+                  "File a Complaint",
+                  style: TextStyle(color: Colors.white, fontSize: 35),
+                ),
+              )),
+          height: 150,
+          width: double.infinity,
+          margin: EdgeInsets.only(bottom: 20),
+          decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(50))),
         ),
         Container(
           child: Text(

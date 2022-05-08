@@ -1,6 +1,9 @@
 import "package:flutter/material.dart";
 import 'dart:async';
 import 'package:hconnect/screens/onboard/login.dart';
+import 'package:hconnect/screens/wardenhomepage.dart';
+import 'package:hconnect/screens/studenthomepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class splash extends StatefulWidget {
   splash({Key? key}) : super(key: key);
@@ -10,6 +13,8 @@ class splash extends StatefulWidget {
 }
 
 class _splashState extends State<splash> {
+  String enroll = '';
+  String type = '';
   @override
   void initState() {
     super.initState();
@@ -22,10 +27,28 @@ class _splashState extends State<splash> {
   }
 
   isuserroute() async {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => loginpage()),
-        (Route<dynamic> route) => false);
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      enroll = await (prefs.getString('enroll') ?? '');
+      type = await (prefs.getString('type') ?? '');
+
+      enroll == ''
+          ? Navigator.push(
+              context, MaterialPageRoute(builder: (context) => loginpage()))
+          : type == "admin"
+              ? Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => wardenhomepage(enroll)),
+                  (Route<dynamic> route) => false)
+              : Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => studenthomepage(enroll)),
+                  (Route<dynamic> route) => false);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
