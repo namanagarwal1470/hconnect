@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hconnect/screens/studentcomplaintdetails.dart';
 
-class complaintpage extends StatefulWidget {
-  complaintpage({Key? key}) : super(key: key);
+class studentpage extends StatefulWidget {
+  studentpage({Key? key}) : super(key: key);
 
   @override
-  _complaintpageState createState() => _complaintpageState();
+  _studentpageState createState() => _studentpageState();
 }
 
-class _complaintpageState extends State<complaintpage> {
+class _studentpageState extends State<studentpage> {
   List enrollno = [];
-  List complaint = [];
   List roomno = [];
-  List date = [];
-  List type = [];
+  List names = [];
   bool isloading = true;
 
   @override
@@ -36,7 +33,7 @@ class _complaintpageState extends State<complaintpage> {
                 Container(
                   height: (MediaQuery.of(context).size.height) * 0.1,
                   margin: EdgeInsets.only(left: 10, top: 50),
-                  child: Text("All Complaints",
+                  child: Text("All Students",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                 ),
               ],
@@ -54,27 +51,20 @@ class _complaintpageState extends State<complaintpage> {
                       : ListView.builder(
                           itemCount: enrollno.length,
                           itemBuilder: (context, index) {
-                            return Cont(enrollno[index], complaint[index],
-                                type[index], date[index], roomno[index]);
+                            return Cont(
+                                enrollno[index], names[index], roomno[index]);
                           })),
             ),
           ],
         ));
   }
 
-  Widget Cont(
-      String text1, String text2, String text3, String text4, String text5) {
+  Widget Cont(String text1, String text2, String text3) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    studentcomplaint(text1, text2, text3, text4, text5)));
-      },
+      onTap: () {},
       child: Container(
           height: 80,
-          margin: EdgeInsets.only(left: 15, right: 15, top: 12),
+          margin: EdgeInsets.only(left: 15, right: 15, top: 10),
           decoration: BoxDecoration(
               color: Colors.grey[300], borderRadius: BorderRadius.circular(30)),
           child: Column(
@@ -90,7 +80,7 @@ class _complaintpageState extends State<complaintpage> {
                     maxLines: 1,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 22,
                     ),
                   ),
                 ),
@@ -98,7 +88,8 @@ class _complaintpageState extends State<complaintpage> {
               Container(
                 margin: EdgeInsets.only(left: 20),
                 child: Text(
-                  "Roomno: " + text1,
+                  text1 + "   (" + text3 + ")",
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
@@ -110,21 +101,15 @@ class _complaintpageState extends State<complaintpage> {
   fetch_all_data() async {
     try {
       CollectionReference data =
-          await FirebaseFirestore.instance.collection('complaints');
-      List<DocumentSnapshot> complaintdocs = (await data.get()).docs;
-      List<String> e =
-          complaintdocs.map((e) => e['enrollno'] as String).toList();
-      List<String> c =
-          complaintdocs.map((e) => e['complaint'] as String).toList();
-      List<String> t = complaintdocs.map((e) => e['type'] as String).toList();
-      List<String> d = complaintdocs.map((e) => e['date'] as String).toList();
-      List<String> r = complaintdocs.map((e) => e['roomno'] as String).toList();
+          await FirebaseFirestore.instance.collection('studentprofile');
+      List<DocumentSnapshot> studentdocs = (await data.get()).docs;
+      List<String> e = studentdocs.map((e) => e['enrollno'] as String).toList();
+      List<String> r = studentdocs.map((e) => e['roomno'] as String).toList();
+      List<String> n = studentdocs.map((e) => e['name'] as String).toList();
       setState(() {
         enrollno = e;
-        complaint = c;
         roomno = r;
-        date = d;
-        type = t;
+        names = n;
         isloading = false;
       });
     } catch (e) {

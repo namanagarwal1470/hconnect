@@ -5,16 +5,26 @@ import 'package:hconnect/screens/leaveform.dart';
 import 'package:hconnect/screens/onboard/login.dart';
 import 'package:hconnect/screens/studentprofile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class studenthomepage extends StatefulWidget {
   String enrollno;
-  studenthomepage(this.enrollno);
+  String name = '';
+
+  studenthomepage(this.enrollno, this.name);
 
   @override
   State<studenthomepage> createState() => _studenthomepageState();
 }
 
 class _studenthomepageState extends State<studenthomepage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,7 +177,7 @@ class _studenthomepageState extends State<studenthomepage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Hi, " + widget.enrollno,
+        Text("Hi, " + widget.name,
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -198,5 +208,6 @@ class _studenthomepageState extends State<studenthomepage> {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("enroll");
     prefs.remove("type");
+    prefs.remove("name");
   }
 }

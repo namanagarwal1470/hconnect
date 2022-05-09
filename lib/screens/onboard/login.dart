@@ -18,6 +18,7 @@ class _loginpageState extends State<loginpage> {
   List id = [];
   List idpassword = [];
   List usertype = [];
+  List name = [];
   bool showerror = false;
   Map<String, String> k = {};
 
@@ -152,6 +153,8 @@ class _loginpageState extends State<loginpage> {
           studentinfodocs.map((e) => e['password'] as String).toList();
       List<String> type =
           studentinfodocs.map((e) => e['type'] as String).toList();
+      List<String> names =
+          studentinfodocs.map((e) => e['name'] as String).toList();
       for (int i = 0; i < enrollno.length; i++) {
         r[enrollno[i]] = password[i];
       }
@@ -160,6 +163,7 @@ class _loginpageState extends State<loginpage> {
         idpassword = password;
         usertype = type;
         k = r;
+        name = names;
         print(k);
       });
     } catch (e) {
@@ -173,20 +177,22 @@ class _loginpageState extends State<loginpage> {
       if (enrollno.text == id[i]) {
         if (password.text == idpassword[i]) {
           if (usertype[i] == "admin") {
-            add_user(enrollno.text, usertype[i]);
+            add_user(enrollno.text, usertype[i], name[i]);
 
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => wardenhomepage(enrollno.text)),
+                    builder: (context) =>
+                        wardenhomepage(enrollno.text, name[i])),
                 (Route<dynamic> route) => false);
           } else {
-            add_user(enrollno.text, usertype[i]);
+            add_user(enrollno.text, usertype[i], name[i]);
 
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => studenthomepage(enrollno.text)),
+                    builder: (context) =>
+                        studenthomepage(enrollno.text, name[i])),
                 (Route<dynamic> route) => false);
           }
         } else {
@@ -198,11 +204,12 @@ class _loginpageState extends State<loginpage> {
     }
   }
 
-  void add_user(String en, String typeof) async {
+  void add_user(String en, String typeof, String n) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('enroll', en);
       await prefs.setString('type', typeof);
+      await prefs.setString('name', n);
     } catch (e) {
       print("Error while adding user data check preferences");
     }

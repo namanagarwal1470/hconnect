@@ -3,11 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hconnect/screens/complaints.dart';
 import 'package:hconnect/screens/leaves.dart';
 import 'package:hconnect/screens/onboard/login.dart';
+import 'package:hconnect/screens/students.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class wardenhomepage extends StatefulWidget {
   String enrollno;
-  wardenhomepage(this.enrollno);
+  String name;
+
+  wardenhomepage(this.enrollno, this.name);
 
   @override
   State<wardenhomepage> createState() => _wardenhomepageState();
@@ -57,6 +60,10 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     child: Center(child: Text("All Complaints"))),
               ),
               GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => studentpage()));
+                },
                 child: Container(
                     height: 150,
                     decoration: BoxDecoration(
@@ -67,6 +74,10 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     child: Center(child: Text("Room management"))),
               ),
               GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => studentpage()));
+                },
                 child: Container(
                     height: 150,
                     decoration: BoxDecoration(
@@ -169,7 +180,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text("Hi, " + widget.enrollno,
+        Text("Hi, " + widget.name,
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -197,5 +208,6 @@ class _wardenhomepageState extends State<wardenhomepage> {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("enroll");
     prefs.remove("type");
+    prefs.remove("name");
   }
 }

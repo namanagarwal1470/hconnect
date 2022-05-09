@@ -15,6 +15,7 @@ class splash extends StatefulWidget {
 class _splashState extends State<splash> {
   String enroll = '';
   String type = '';
+  String name = '';
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,7 @@ class _splashState extends State<splash> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       enroll = await (prefs.getString('enroll') ?? '');
       type = await (prefs.getString('type') ?? '');
+      name = await (prefs.getString('name') ?? '');
 
       enroll == ''
           ? Navigator.push(
@@ -39,12 +41,12 @@ class _splashState extends State<splash> {
               ? Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => wardenhomepage(enroll)),
+                      builder: (context) => wardenhomepage(enroll, name)),
                   (Route<dynamic> route) => false)
               : Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => studenthomepage(enroll)),
+                      builder: (context) => studenthomepage(enroll, name)),
                   (Route<dynamic> route) => false);
     } catch (e) {
       print(e.toString());

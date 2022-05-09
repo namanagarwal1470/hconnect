@@ -4,6 +4,7 @@ import 'package:hconnect/screens/complaints.dart';
 import "package:hconnect/screens/onboard/splashscreen.dart";
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hconnect/screens/studentcomplaintdetails.dart';
 import 'package:hconnect/screens/studenthomepage.dart';
 import 'package:hconnect/screens/studentprofile.dart';
 
