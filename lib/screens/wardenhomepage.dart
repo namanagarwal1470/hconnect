@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hconnect/screens/complaints.dart';
+import 'package:hconnect/screens/createfine.dart';
+import 'package:hconnect/screens/finemanagement.dart';
 import 'package:hconnect/screens/leaves.dart';
 import 'package:hconnect/screens/onboard/login.dart';
 import 'package:hconnect/screens/students.dart';
@@ -62,7 +64,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => studentpage()));
+                      MaterialPageRoute(builder: (context) => createfine()));
                 },
                 child: Container(
                     height: 150,
@@ -72,6 +74,22 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     margin: EdgeInsets.all(10),
                     width: double.infinity,
                     child: Center(child: Text("Room management"))),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => finemanagementpage()));
+                },
+                child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Center(child: Text("Fine management"))),
               ),
               GestureDetector(
                 onTap: () {

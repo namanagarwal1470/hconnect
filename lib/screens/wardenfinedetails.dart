@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class studentcomplaint extends StatefulWidget {
+class wardenfine extends StatefulWidget {
   String enrollno;
   String date;
+  String amount;
+  String reason;
   String type;
-  String roomno;
-  String complaint;
   String status;
-  studentcomplaint(this.enrollno, this.complaint, this.type, this.date,
-      this.roomno, this.status);
+  wardenfine(this.enrollno, this.date, this.reason, this.status, this.amount,
+      this.type);
 
   @override
-  State<studentcomplaint> createState() => _studentcomplaintState();
+  State<wardenfine> createState() => _wardenfineState();
 }
 
-class _studentcomplaintState extends State<studentcomplaint> {
+class _wardenfineState extends State<wardenfine> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,12 +35,12 @@ class _studentcomplaintState extends State<studentcomplaint> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Room no",
+                      "Reason",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.roomno,
+                      widget.reason,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -52,7 +52,41 @@ class _studentcomplaintState extends State<studentcomplaint> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Complaint Type",
+                      "Enroll no",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.enrollno,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                )),
+            Container(
+                margin: EdgeInsets.only(left: 15, top: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Amount",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.amount,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                )),
+            Container(
+                margin: EdgeInsets.only(left: 15, top: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Fine type",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -69,24 +103,7 @@ class _studentcomplaintState extends State<studentcomplaint> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Reason",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      widget.complaint,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Date of Complaint",
+                      "Fine Created on",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -108,7 +125,7 @@ class _studentcomplaintState extends State<studentcomplaint> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.status == "true" ? "Resolved" : "unresolved",
+                      widget.status == "paid" ? "paid" : "notpaid",
                       style: TextStyle(fontSize: 18),
                     ),
                   ],

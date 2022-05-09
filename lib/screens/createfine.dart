@@ -1,43 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ComplainForm extends StatefulWidget {
-  String enrollno;
-
-  ComplainForm(this.enrollno);
+class createfine extends StatefulWidget {
+  createfine();
 
   @override
-  _ComplainFormState createState() => _ComplainFormState();
+  _createfineState createState() => _createfineState();
 }
 
-class _ComplainFormState extends State<ComplainForm> {
-  String complain_type = 'Electricity';
-  String roomno = '';
+class _createfineState extends State<createfine> {
+  String fine_type = 'attendance';
   String finalDate = '';
+  TextEditingController enrollno = TextEditingController();
   TextEditingController message = TextEditingController();
+  TextEditingController amount = TextEditingController();
   List<DropdownMenuItem<String>> items = [
     new DropdownMenuItem(
-      child: new Text('Electricity'),
-      value: 'Electricity',
+      child: new Text('Attendance'),
+      value: 'attendance',
     ),
     new DropdownMenuItem(
-      child: new Text('Furniture'),
-      value: 'Furniture',
+      child: new Text('Alcohol'),
+      value: 'alcohol',
     ),
     new DropdownMenuItem(
-      child: new Text('Network'),
-      value: 'Network',
+      child: new Text('Smoking'),
+      value: 'smoking',
     ),
     new DropdownMenuItem(
-      child: new Text('Water'),
-      value: 'Water',
+      child: new Text('Others'),
+      value: 'others',
     ),
   ];
 
   @override
   void initState() {
     super.initState();
-    fetch_all_data();
   }
 
   @override
@@ -61,7 +59,7 @@ class _ComplainFormState extends State<ComplainForm> {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  "File a Complaint",
+                  "Create Fine",
                   style: TextStyle(color: Colors.white, fontSize: 35),
                 ),
               )),
@@ -74,7 +72,7 @@ class _ComplainFormState extends State<ComplainForm> {
         ),
         Container(
           child: Text(
-            "Complaint Type",
+            "Fine Type",
             style: TextStyle(
                 color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
           ),
@@ -96,11 +94,11 @@ class _ComplainFormState extends State<ComplainForm> {
                       child: new DropdownButton(
                     borderRadius: BorderRadius.circular(20),
                     items: items,
-                    hint: new Text('Select type of complain.'),
-                    value: complain_type,
+                    hint: new Text('Select type of fine.'),
+                    value: fine_type,
                     onChanged: (val) {
                       setState(() {
-                        complain_type = val.toString();
+                        fine_type = val.toString();
                       });
                     },
                   )),
@@ -108,6 +106,60 @@ class _ComplainFormState extends State<ComplainForm> {
           ],
         ),
         SizedBox(height: 30),
+        Container(
+          child: Text(
+            "Enroll no",
+            style: TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(height: 10),
+        TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'Enroll no',
+            labelText: 'Enroll no',
+          ),
+          keyboardType: TextInputType.datetime,
+          controller: enrollno,
+        ),
+        SizedBox(height: 30),
+        Container(
+          child: Text(
+            "Amount",
+            style: TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(height: 10),
+        TextField(
+          decoration: InputDecoration(
+            border: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
+            filled: true,
+            hintText: 'Amount',
+            labelText: 'Amount',
+          ),
+          keyboardType: TextInputType.datetime,
+          controller: amount,
+        ),
+        SizedBox(height: 30),
+        Container(
+          child: Text(
+            "Reason",
+            style: TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(height: 10),
         new TextField(
           decoration: new InputDecoration(
             hintText: 'Reason',
@@ -140,7 +192,7 @@ class _ComplainFormState extends State<ComplainForm> {
           child: Container(
             child: Center(
               child: Text(
-                "Submit",
+                "Create",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
@@ -155,37 +207,21 @@ class _ComplainFormState extends State<ComplainForm> {
   }
 
   void senddata() async {
-    CollectionReference complaint =
-        FirebaseFirestore.instance.collection('complaints');
-    complaint.add({
-      'enrollno': widget.enrollno,
-      'type': complain_type,
-      'complaint': message.text,
-      'status': "false",
-      'roomno': roomno,
+    CollectionReference fine = FirebaseFirestore.instance.collection('fines');
+    fine.add({
+      'enrollno': enrollno.text,
+      'type': fine_type,
+      'status': "notpaid",
+      'amount': amount.text,
+      'reason': message.text,
       'date': finalDate
     });
     setState(() {
-      complain_type = 'Electricity';
+      fine_type = 'attendance';
       message.clear();
+      amount.clear();
+      enrollno.clear();
     });
-  }
-
-  fetch_all_data() async {
-    try {
-      CollectionReference data =
-          await FirebaseFirestore.instance.collection('Userprofile');
-      List<DocumentSnapshot> complaintdocs =
-          (await data.where('enrollno', isEqualTo: widget.enrollno).get()).docs;
-
-      List<String> r = complaintdocs.map((e) => e['roomno'] as String).toList();
-      setState(() {
-        roomno = r[0];
-      });
-    } catch (e) {
-      print(e.toString());
-      return [];
-    }
   }
 
   getCurrentDate() {

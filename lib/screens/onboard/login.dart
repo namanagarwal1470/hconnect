@@ -19,6 +19,7 @@ class _loginpageState extends State<loginpage> {
   List idpassword = [];
   List usertype = [];
   List name = [];
+
   bool showerror = false;
   Map<String, String> k = {};
 
@@ -144,7 +145,7 @@ class _loginpageState extends State<loginpage> {
     Map<String, String> r = {};
     try {
       CollectionReference data =
-          await FirebaseFirestore.instance.collection('studentprofile');
+          await FirebaseFirestore.instance.collection('Userprofile');
       List<DocumentSnapshot> studentinfodocs = (await data.get()).docs;
       print(studentinfodocs);
       List<String> enrollno =
@@ -155,6 +156,7 @@ class _loginpageState extends State<loginpage> {
           studentinfodocs.map((e) => e['type'] as String).toList();
       List<String> names =
           studentinfodocs.map((e) => e['name'] as String).toList();
+
       for (int i = 0; i < enrollno.length; i++) {
         r[enrollno[i]] = password[i];
       }
@@ -163,6 +165,7 @@ class _loginpageState extends State<loginpage> {
         idpassword = password;
         usertype = type;
         k = r;
+
         name = names;
         print(k);
       });

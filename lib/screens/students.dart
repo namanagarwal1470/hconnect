@@ -101,15 +101,18 @@ class _studentpageState extends State<studentpage> {
   fetch_all_data() async {
     try {
       CollectionReference data =
-          await FirebaseFirestore.instance.collection('studentprofile');
-      List<DocumentSnapshot> studentdocs = (await data.get()).docs;
+          await FirebaseFirestore.instance.collection('Userprofile');
+      List<DocumentSnapshot> studentdocs =
+          (await data.where("type", isEqualTo: "student").get()).docs;
       List<String> e = studentdocs.map((e) => e['enrollno'] as String).toList();
       List<String> r = studentdocs.map((e) => e['roomno'] as String).toList();
       List<String> n = studentdocs.map((e) => e['name'] as String).toList();
+
       setState(() {
         enrollno = e;
         roomno = r;
         names = n;
+
         isloading = false;
       });
     } catch (e) {
