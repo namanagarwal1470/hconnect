@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'dart:async';
 import 'package:hconnect/screens/onboard/login.dart';
-import 'package:hconnect/screens/wardenhomepage.dart';
-import 'package:hconnect/screens/studenthomepage.dart';
+import 'package:hconnect/screens/warden/wardenhomepage.dart';
+import 'package:hconnect/screens/student/studenthomepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class splash extends StatefulWidget {

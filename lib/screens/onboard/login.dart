@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hconnect/screens/studenthomepage.dart';
-import 'package:hconnect/screens/wardenhomepage.dart';
+import 'package:hconnect/screens/student/studenthomepage.dart';
+import 'package:hconnect/screens/warden/wardenhomepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class loginpage extends StatefulWidget {

@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hconnect/screens/studentcomplaintdetails.dart';
-import 'package:hconnect/screens/wardenfinedetails.dart';
-import 'package:hconnect/screens/createfine.dart';
+import 'package:hconnect/screens/warden/complaintmanagement/wardencomplaintdetails.dart';
 
-class finemanagementpage extends StatefulWidget {
-  finemanagementpage({Key? key}) : super(key: key);
+class complaintpage extends StatefulWidget {
+  complaintpage({Key? key}) : super(key: key);
 
   @override
-  _finemanagementpageState createState() => _finemanagementpageState();
+  _complaintpageState createState() => _complaintpageState();
 }
 
-class _finemanagementpageState extends State<finemanagementpage> {
+class _complaintpageState extends State<complaintpage> {
   List enrollno = [];
-  List reason = [];
+  List complaint = [];
+  List roomno = [];
   List date = [];
   List status = [];
-  List amount = [];
   List type = [];
-
   bool isloading = true;
 
   @override
@@ -35,17 +32,14 @@ class _finemanagementpageState extends State<finemanagementpage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 arrowbackbutton(context),
                 Container(
                   height: (MediaQuery.of(context).size.height) * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  margin: EdgeInsets.only(top: 50),
-                  child: Text("All Fines",
+                  margin: EdgeInsets.only(left: 10, top: 50),
+                  child: Text("All Complaints",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                 ),
-                Createfine(context)
               ],
             ),
             Expanded(
@@ -63,11 +57,11 @@ class _finemanagementpageState extends State<finemanagementpage> {
                           itemBuilder: (context, index) {
                             return Cont(
                                 enrollno[index],
+                                complaint[index],
+                                type[index],
                                 date[index],
-                                reason[index],
-                                status[index],
-                                amount[index],
-                                type[index]);
+                                roomno[index],
+                                status[index]);
                           })),
             ),
           ],
@@ -81,14 +75,14 @@ class _finemanagementpageState extends State<finemanagementpage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    wardenfine(text1, text2, text3, text4, text5, text6)));
+                builder: (context) => studentcomplaint(
+                    text1, text2, text3, text4, text5, text6)));
       },
       child: Container(
           height: 80,
           margin: EdgeInsets.only(left: 15, right: 15, top: 12),
           decoration: BoxDecoration(
-              color: text4 == "paid" ? Colors.green[300] : Colors.red[300],
+              color: text6 == "true" ? Colors.green[300] : Colors.red[300],
               borderRadius: BorderRadius.circular(30)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +92,7 @@ class _finemanagementpageState extends State<finemanagementpage> {
                 child: Container(
                   margin: EdgeInsets.only(left: 20),
                   child: Text(
-                    text6,
+                    text2,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
@@ -123,21 +117,23 @@ class _finemanagementpageState extends State<finemanagementpage> {
   fetch_all_data() async {
     try {
       CollectionReference data =
-          await FirebaseFirestore.instance.collection('fines');
-      List<DocumentSnapshot> finedocs = (await data.get()).docs;
-      List<String> e = finedocs.map((e) => e['enrollno'] as String).toList();
-      List<String> d = finedocs.map((e) => e['date'] as String).toList();
-      List<String> r = finedocs.map((e) => e['reason'] as String).toList();
-      List<String> s = finedocs.map((e) => e['status'] as String).toList();
-      List<String> a = finedocs.map((e) => e['amount'] as String).toList();
-      List<String> t = finedocs.map((e) => e['type'] as String).toList();
+          await FirebaseFirestore.instance.collection('complaints');
+      List<DocumentSnapshot> complaintdocs = (await data.get()).docs;
+      List<String> e =
+          complaintdocs.map((e) => e['enrollno'] as String).toList();
+      List<String> c =
+          complaintdocs.map((e) => e['complaint'] as String).toList();
+      List<String> t = complaintdocs.map((e) => e['type'] as String).toList();
+      List<String> d = complaintdocs.map((e) => e['date'] as String).toList();
+      List<String> r = complaintdocs.map((e) => e['roomno'] as String).toList();
+      List<String> s = complaintdocs.map((e) => e['status'] as String).toList();
       setState(() {
         enrollno = e;
-        amount = a;
-        reason = r;
+        complaint = c;
+        roomno = r;
         date = d;
-        status = s;
         type = t;
+        status = s;
         isloading = false;
       });
     } catch (e) {
@@ -159,28 +155,6 @@ class _finemanagementpageState extends State<finemanagementpage> {
           color: Colors.white,
           onPressed: () {
             Navigator.pop(context);
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget Createfine(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      margin: EdgeInsets.only(top: 20),
-      child: Ink(
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: CircleBorder(),
-        ),
-        child: IconButton(
-          icon: Icon(Icons.create),
-          color: Colors.red,
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => createfine()));
           },
         ),
       ),

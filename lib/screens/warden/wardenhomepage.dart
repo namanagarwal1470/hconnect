@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hconnect/screens/complaints.dart';
-import 'package:hconnect/screens/createfine.dart';
-import 'package:hconnect/screens/finemanagement.dart';
-import 'package:hconnect/screens/leaves.dart';
+import 'package:hconnect/screens/warden/complaintmanagement/complaints.dart';
+import 'package:hconnect/screens/warden/finemanagement/createfine.dart';
+import 'package:hconnect/screens/warden/finemanagement/finemanagement.dart';
+import 'package:hconnect/screens/warden/leavemanagement/leaves.dart';
 import 'package:hconnect/screens/onboard/login.dart';
-import 'package:hconnect/screens/students.dart';
+import 'package:hconnect/screens/warden/students/students.dart';
+import 'package:hconnect/screens/warden/wardenprofile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class wardenhomepage extends StatefulWidget {
@@ -127,7 +128,10 @@ class _wardenhomepageState extends State<wardenhomepage> {
           )),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => wardenprofile()));
+          },
           child: ListTile(
             title: Row(
               children: [
@@ -214,7 +218,10 @@ class _wardenhomepageState extends State<wardenhomepage> {
               icon: Icon(Icons.verified_sharp),
               iconSize: 15,
               color: Colors.red,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => wardenprofile()));
+              },
             ),
           ),
         ),

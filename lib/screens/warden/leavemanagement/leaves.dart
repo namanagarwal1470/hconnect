@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hconnect/screens/studentleavedetails.dart';
+import 'package:hconnect/screens/warden/leavemanagement/studentleavedetails.dart';
 
 class leavepage extends StatefulWidget {
   leavepage({Key? key}) : super(key: key);
