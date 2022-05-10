@@ -112,7 +112,7 @@ class _studentprofileState extends State<studentprofile> {
           width: w,
           child: Text(
             content,
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -136,9 +136,9 @@ class _studentprofileState extends State<studentprofile> {
                           child: Text(
                             content,
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.black,
+                              fontSize: 17,
+                            ),
                           ))
                     ],
                   )

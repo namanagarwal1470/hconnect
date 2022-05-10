@@ -1,43 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class wardenstudentdetails extends StatefulWidget {
-  String name;
   String enrollno;
-  String dob;
-  String branch;
-  String year;
-  String email;
-  String mobileno;
-  String bloodgroup;
-  String hostelname;
-  String roomno;
-  String parentsname;
-  String parentsmobile;
-  String localguardianname;
-  String localguardianmobile;
-  String address;
+
   wardenstudentdetails(
-      this.name,
-      this.enrollno,
-      this.dob,
-      this.branch,
-      this.year,
-      this.email,
-      this.mobileno,
-      this.bloodgroup,
-      this.hostelname,
-      this.roomno,
-      this.parentsname,
-      this.parentsmobile,
-      this.localguardianname,
-      this.localguardianmobile,
-      this.address);
+    this.enrollno,
+  );
 
   @override
   State<wardenstudentdetails> createState() => _wardenstudentdetailsState();
 }
 
 class _wardenstudentdetailsState extends State<wardenstudentdetails> {
+  String name = '';
+  String dob = '';
+  String branch = '';
+  String year = '';
+  String email = '';
+  String mobileno = '';
+  String bloodgroup = '';
+  String hostelname = '';
+  String roomno = '';
+  String parentsname = '';
+  String parentsmobile = '';
+  String localguardianname = '';
+  String localguardianmobile = '';
+  String address = '';
+  String floor = '';
+  bool isloading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetch_all_data();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +61,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.name,
+                      name,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -97,7 +95,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.dob,
+                      dob,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -114,7 +112,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.branch + '-' + widget.year,
+                      branch + '-' + year,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -131,7 +129,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.email,
+                      email,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -148,7 +146,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.mobileno,
+                      mobileno,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -165,7 +163,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.bloodgroup,
+                      bloodgroup,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -182,7 +180,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.hostelname + "-" + widget.roomno,
+                      hostelname + "-" + roomno,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -194,12 +192,12 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "parentsname * mobileno",
+                      "parentsname & mobileno",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.parentsname + "-" + widget.parentsmobile,
+                      parentsname + "-" + parentsmobile,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -216,9 +214,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.localguardianname +
-                          "-" +
-                          widget.localguardianmobile,
+                      localguardianname + "-" + localguardianmobile,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],
@@ -235,7 +231,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.address,
+                      address,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 18),
                     ),
@@ -245,5 +241,56 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
         )
       ]),
     );
+  }
+
+  fetch_all_data() async {
+    try {
+      CollectionReference data =
+          await FirebaseFirestore.instance.collection('Userprofile');
+      List<DocumentSnapshot> leavesdocs =
+          (await data.where('enrollno', isEqualTo: widget.enrollno).get()).docs;
+      List<String> ad = leavesdocs.map((e) => e['address'] as String).toList();
+
+      List<String> bg =
+          leavesdocs.map((e) => e['bloodgroup'] as String).toList();
+      List<String> br = leavesdocs.map((e) => e['branch'] as String).toList();
+      List<String> db = leavesdocs.map((e) => e['dob'] as String).toList();
+      List<String> em = leavesdocs.map((e) => e['email'] as String).toList();
+      List<String> fl = leavesdocs.map((e) => e['floor'] as String).toList();
+      List<String> h = leavesdocs.map((e) => e['hostel'] as String).toList();
+      List<String> nm = leavesdocs.map((e) => e['name'] as String).toList();
+      List<String> lgn =
+          leavesdocs.map((e) => e['local guardian name'] as String).toList();
+      List<String> lgp =
+          leavesdocs.map((e) => e['local guardian phoneno'] as String).toList();
+      List<String> pn =
+          leavesdocs.map((e) => e['parent name'] as String).toList();
+      List<String> pp =
+          leavesdocs.map((e) => e['parent phoneno'] as String).toList();
+      List<String> pno = leavesdocs.map((e) => e['phoneno'] as String).toList();
+      List<String> rn = leavesdocs.map((e) => e['roomno'] as String).toList();
+      List<String> y = leavesdocs.map((e) => e['year'] as String).toList();
+      setState(() {
+        name = nm[0];
+        dob = db[0];
+        branch = br[0];
+        year = y[0];
+        email = em[0];
+        mobileno = pno[0];
+        bloodgroup = bg[0];
+        hostelname = h[0];
+        roomno = rn[0];
+        floor = fl[0];
+        parentsname = pn[0];
+        parentsmobile = pp[0];
+        localguardianname = lgn[0];
+        localguardianmobile = lgp[0];
+        address = ad[0];
+        isloading = false;
+      });
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }

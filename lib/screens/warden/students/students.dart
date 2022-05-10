@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hconnect/screens/warden/students/wardenstudentdetails.dart';
 
 class studentpage extends StatefulWidget {
   studentpage({Key? key}) : super(key: key);
@@ -61,7 +62,12 @@ class _studentpageState extends State<studentpage> {
 
   Widget Cont(String text1, String text2, String text3) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => wardenstudentdetails(text1)));
+      },
       child: Container(
           height: 80,
           margin: EdgeInsets.only(left: 15, right: 15, top: 10),

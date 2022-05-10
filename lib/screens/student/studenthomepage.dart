@@ -7,6 +7,7 @@ import 'package:hconnect/screens/student/leaves/leaveform.dart';
 import 'package:hconnect/screens/onboard/login.dart';
 import 'package:hconnect/screens/student/leaves/myleaves.dart';
 import 'package:hconnect/screens/student/studentprofile.dart';
+import 'package:hconnect/screens/student/wardenui/wardenui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -75,6 +76,10 @@ class _studenthomepageState extends State<studenthomepage> {
                     child: Center(child: Text("Register Complaint"))),
               ),
               GestureDetector(
+                onTap: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => wardenui()))
+                },
                 child: Container(
                     height: 150,
                     decoration: BoxDecoration(

@@ -78,7 +78,7 @@ class _wardenprofileState extends State<wardenprofile> {
           width: w,
           child: Text(
             content,
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -102,9 +102,9 @@ class _wardenprofileState extends State<wardenprofile> {
                           child: Text(
                             content,
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.black,
+                              fontSize: 17,
+                            ),
                           ))
                     ],
                   )
