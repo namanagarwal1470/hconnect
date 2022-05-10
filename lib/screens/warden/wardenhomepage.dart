@@ -129,8 +129,10 @@ class _wardenhomepageState extends State<wardenhomepage> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => wardenprofile()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => wardenprofile(widget.enrollno)));
           },
           child: ListTile(
             title: Row(
@@ -219,8 +221,10 @@ class _wardenhomepageState extends State<wardenhomepage> {
               iconSize: 15,
               color: Colors.red,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => wardenprofile()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => wardenprofile(widget.enrollno)));
               },
             ),
           ),

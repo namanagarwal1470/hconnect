@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class wardenprofile extends StatefulWidget {
-  wardenprofile({Key? key}) : super(key: key);
+  String enrollno;
+  wardenprofile(this.enrollno);
 
   @override
   State<wardenprofile> createState() => _wardenprofileState();
 }
 
 class _wardenprofileState extends State<wardenprofile> {
+  String name = '';
+  String email = '';
+  String mobileno = '';
+  String floor = '';
+  String hostelname = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetch_all_data();
+  }
+
   @override
   Widget build(BuildContext context) {
     double w_factor = MediaQuery.of(context).size.width / 360;
@@ -35,19 +49,19 @@ class _wardenprofileState extends State<wardenprofile> {
             ),
             textcontainer(
                 h_factor * 23, w_factor * 312, h_factor * 16, "Name:"),
-            textfield(h_factor * 50, w_factor * 312, true, "Naman agarwal"),
+            textfield(h_factor * 50, w_factor * 312, true, name),
             textcontainer(h_factor * 23, w_factor * 312, h_factor * 16, "Id:"),
-            textfield(h_factor * 50, w_factor * 312, true, "19103047"),
+            textfield(h_factor * 50, w_factor * 312, true, widget.enrollno),
             textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
                 "Hostel Name & Floor:"),
-            textfield(h_factor * 50, w_factor * 312, true, "Abb3-3rd"),
+            textfield(
+                h_factor * 50, w_factor * 312, true, hostelname + "-" + floor),
             textcontainer(
                 h_factor * 23, w_factor * 312, h_factor * 16, "Email :"),
-            textfield(h_factor * 50, w_factor * 312, true,
-                "namanagarwal14072000@gmail.com"),
+            textfield(h_factor * 50, w_factor * 312, true, email),
             textcontainer(
                 h_factor * 23, w_factor * 312, h_factor * 16, "Mobileno:"),
-            textfield(h_factor * 50, w_factor * 312, true, "9559302642"),
+            textfield(h_factor * 50, w_factor * 312, true, mobileno),
           ],
         )
       ]),
@@ -97,5 +111,34 @@ class _wardenprofileState extends State<wardenprofile> {
                 : Text(""))
       ],
     );
+  }
+
+  fetch_all_data() async {
+    try {
+      CollectionReference data =
+          await FirebaseFirestore.instance.collection('Userprofile');
+      List<DocumentSnapshot> leavesdocs =
+          (await data.where('enrollno', isEqualTo: widget.enrollno).get()).docs;
+
+      List<String> em = leavesdocs.map((e) => e['email'] as String).toList();
+      List<String> fl = leavesdocs.map((e) => e['floor'] as String).toList();
+      List<String> h = leavesdocs.map((e) => e['hostel'] as String).toList();
+      List<String> nm = leavesdocs.map((e) => e['name'] as String).toList();
+      List<String> pno = leavesdocs.map((e) => e['phoneno'] as String).toList();
+
+      setState(() {
+        name = nm[0];
+
+        email = em[0];
+        mobileno = pno[0];
+
+        hostelname = h[0];
+
+        floor = fl[0];
+      });
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }
