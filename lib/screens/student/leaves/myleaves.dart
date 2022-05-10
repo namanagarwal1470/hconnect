@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hconnect/screens/student/leaves/myleavesdetails.dart';
+import 'package:hconnect/screens/student/leaves/leaveform.dart';
 import 'package:hconnect/screens/warden/leavemanagement/studentleavedetails.dart';
 
 class myleaves extends StatefulWidget {
@@ -32,14 +33,17 @@ class _myleavesState extends State<myleaves> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 arrowbackbutton(context),
                 Container(
                   height: (MediaQuery.of(context).size.height) * 0.1,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   margin: EdgeInsets.only(left: 10, top: 50),
                   child: Text("All leaves",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                 ),
+                Createleaves(context)
               ],
             ),
             Expanded(
@@ -146,6 +150,30 @@ class _myleavesState extends State<myleaves> {
           color: Colors.white,
           onPressed: () {
             Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget Createleaves(BuildContext context) {
+    return Container(
+      height: 40,
+      width: 40,
+      margin: EdgeInsets.only(top: 20),
+      child: Ink(
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: CircleBorder(),
+        ),
+        child: IconButton(
+          icon: Icon(Icons.create),
+          color: Colors.red,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => LeaveForm(widget.enrollno)));
           },
         ),
       ),

@@ -158,6 +158,13 @@ class _LeaveFormState extends State<LeaveForm> {
       children: [
         GestureDetector(
           onTap: () {
+            final snackBar = SnackBar(
+              content: const Text('Successfully submitted!'),
+              backgroundColor: (Colors.red),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(milliseconds: 4000),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
             senddata();
           },
           child: Container(

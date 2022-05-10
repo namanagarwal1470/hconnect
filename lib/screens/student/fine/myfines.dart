@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hconnect/screens/student/complaint/mycomplaintdetails.dart';
-import 'package:hconnect/screens/student/complaint/complaintform.dart';
-import 'package:hconnect/screens/warden/complaintmanagement/complaints.dart';
+import 'package:hconnect/screens/student/fine/myfinedetails.dart';
 import 'package:hconnect/screens/warden/complaintmanagement/wardencomplaintdetails.dart';
+import 'package:hconnect/screens/warden/finemanagement/wardenfinedetails.dart';
+import 'package:hconnect/screens/warden/finemanagement/createfine.dart';
 
-class mycomplaints extends StatefulWidget {
+class myfine extends StatefulWidget {
   String enrollno;
-  mycomplaints(this.enrollno);
+  myfine(this.enrollno);
 
   @override
-  _mycomplaintsState createState() => _mycomplaintsState();
+  _myfineState createState() => _myfineState();
 }
 
-class _mycomplaintsState extends State<mycomplaints> {
-  List complaint = [];
+class _myfineState extends State<myfine> {
+  List reason = [];
   List date = [];
   List status = [];
+  List amount = [];
   List type = [];
+
   bool isloading = true;
 
   @override
@@ -34,17 +36,14 @@ class _mycomplaintsState extends State<mycomplaints> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 arrowbackbutton(context),
                 Container(
                   height: (MediaQuery.of(context).size.height) * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  margin: EdgeInsets.only(left: 10, top: 50),
-                  child: Text("My Complaints",
+                  margin: EdgeInsets.only(top: 50),
+                  child: Text("My Fines",
                       style: TextStyle(color: Colors.white, fontSize: 30)),
                 ),
-                Createcomplaint(context)
               ],
             ),
             Expanded(
@@ -58,30 +57,31 @@ class _mycomplaintsState extends State<mycomplaints> {
                   child: isloading
                       ? Center(child: CircularProgressIndicator())
                       : ListView.builder(
-                          itemCount: complaint.length,
+                          itemCount: reason.length,
                           itemBuilder: (context, index) {
-                            return Cont(complaint[index], type[index],
-                                date[index], status[index]);
+                            return Cont(date[index], reason[index],
+                                status[index], amount[index], type[index]);
                           })),
             ),
           ],
         ));
   }
 
-  Widget Cont(String text2, String text3, String text4, String text6) {
+  Widget Cont(
+      String text2, String text3, String text4, String text5, String text6) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    mycomplaintdetails(text2, text3, text4, text6)));
+                    myfinedetails(text2, text3, text4, text5, text6)));
       },
       child: Container(
           height: 80,
           margin: EdgeInsets.only(left: 15, right: 15, top: 12),
           decoration: BoxDecoration(
-              color: text6 == "true" ? Colors.green[300] : Colors.red[300],
+              color: text4 == "paid" ? Colors.green[300] : Colors.red[300],
               borderRadius: BorderRadius.circular(30)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +104,7 @@ class _mycomplaintsState extends State<mycomplaints> {
               Container(
                 margin: EdgeInsets.only(left: 20),
                 child: Text(
-                  "Date: " + text4,
+                  "Amount: " + text5,
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
@@ -116,21 +116,23 @@ class _mycomplaintsState extends State<mycomplaints> {
   fetch_all_data() async {
     try {
       CollectionReference data =
-          await FirebaseFirestore.instance.collection('complaints');
-      List<DocumentSnapshot> complaintdocs =
+          await FirebaseFirestore.instance.collection('fines');
+      List<DocumentSnapshot> finedocs =
           (await data.where('enrollno', isEqualTo: widget.enrollno).get()).docs;
-      List<String> c =
-          complaintdocs.map((e) => e['complaint'] as String).toList();
-      List<String> t = complaintdocs.map((e) => e['type'] as String).toList();
-      List<String> d = complaintdocs.map((e) => e['date'] as String).toList();
+      List<String> l = finedocs.map((e) => e.id as String).toList();
+      print(l);
 
-      List<String> s = complaintdocs.map((e) => e['status'] as String).toList();
+      List<String> d = finedocs.map((e) => e['date'] as String).toList();
+      List<String> r = finedocs.map((e) => e['reason'] as String).toList();
+      List<String> s = finedocs.map((e) => e['status'] as String).toList();
+      List<String> a = finedocs.map((e) => e['amount'] as String).toList();
+      List<String> t = finedocs.map((e) => e['type'] as String).toList();
       setState(() {
-        complaint = c;
-
+        amount = a;
+        reason = r;
         date = d;
-        type = t;
         status = s;
+        type = t;
         isloading = false;
       });
     } catch (e) {
@@ -152,30 +154,6 @@ class _mycomplaintsState extends State<mycomplaints> {
           color: Colors.white,
           onPressed: () {
             Navigator.pop(context);
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget Createcomplaint(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 40,
-      margin: EdgeInsets.only(top: 20),
-      child: Ink(
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: CircleBorder(),
-        ),
-        child: IconButton(
-          icon: Icon(Icons.create),
-          color: Colors.red,
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ComplainForm(widget.enrollno)));
           },
         ),
       ),
