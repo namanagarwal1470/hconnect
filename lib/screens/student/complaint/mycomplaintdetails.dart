@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class mycomplaintdetails extends StatefulWidget {
   String date;
   String type;
   String complaint;
   String status;
-  mycomplaintdetails(this.complaint, this.type, this.date, this.status);
+  String docid;
+  mycomplaintdetails(
+      this.complaint, this.type, this.date, this.status, this.docid);
 
   @override
   State<mycomplaintdetails> createState() => _mycomplaintdetailsState();
 }
 
 class _mycomplaintdetailsState extends State<mycomplaintdetails> {
+  bool isresolve = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,9 +97,61 @@ class _mycomplaintdetailsState extends State<mycomplaintdetails> {
                     ),
                   ],
                 )),
+            widget.status == "false" && !isresolve
+                ? resolvebutton(context)
+                : Text("")
           ],
         )
       ]),
     );
+  }
+
+  Widget resolvebutton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            updatedata();
+            final snackBar = SnackBar(
+              content: const Text('Complaint resolved!'),
+              backgroundColor: (Colors.red),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(milliseconds: 2000),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            setState(() {
+              isresolve = true;
+            });
+          },
+          child: Container(
+            margin: EdgeInsets.only(top: 50),
+            child: Center(
+              child: Text(
+                "Is resolved",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.blue),
+            width: MediaQuery.of(context).size.width * 0.3,
+            height: 45,
+          ),
+        ),
+      ],
+    );
+  }
+
+  updatedata() async {
+    try {
+      FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      await _firestore
+          .collection('complaints')
+          .doc(widget.docid)
+          .update({'status': "true"});
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }

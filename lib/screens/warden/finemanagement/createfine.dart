@@ -187,6 +187,13 @@ class _createfineState extends State<createfine> {
         GestureDetector(
           onTap: () {
             getCurrentDate();
+            final snackBar = SnackBar(
+              content: const Text('Successfully Created!'),
+              backgroundColor: (Colors.red),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(milliseconds: 4000),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
             senddata();
           },
           child: Container(

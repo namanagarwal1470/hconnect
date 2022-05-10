@@ -32,6 +32,14 @@ class _ComplainFormState extends State<ComplainForm> {
       child: new Text('Water'),
       value: 'Water',
     ),
+    new DropdownMenuItem(
+      child: new Text('Lift'),
+      value: 'Lift',
+    ),
+    new DropdownMenuItem(
+      child: new Text('Others'),
+      value: 'Others',
+    ),
   ];
 
   @override

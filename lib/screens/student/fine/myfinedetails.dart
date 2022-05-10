@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hconnect/screens/student/success.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class myfinedetails extends StatefulWidget {
   String date;
@@ -6,7 +8,10 @@ class myfinedetails extends StatefulWidget {
   String reason;
   String type;
   String status;
-  myfinedetails(this.date, this.reason, this.status, this.amount, this.type);
+  String enrollno;
+  String docid;
+  myfinedetails(this.date, this.reason, this.status, this.amount, this.type,
+      this.enrollno, this.docid);
 
   @override
   State<myfinedetails> createState() => _myfinedetailsState();
@@ -111,7 +116,7 @@ class _myfinedetailsState extends State<myfinedetails> {
                     ),
                   ],
                 )),
-            paybutton(context)
+            widget.status == "notpaid" ? paybutton(context) : Text("")
           ],
         )
       ]),
@@ -123,7 +128,13 @@ class _myfinedetailsState extends State<myfinedetails> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            updatedata();
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ThankYouPage(widget.enrollno)));
+          },
           child: Container(
             margin: EdgeInsets.only(top: 50),
             child: Center(
@@ -140,5 +151,18 @@ class _myfinedetailsState extends State<myfinedetails> {
         ),
       ],
     );
+  }
+
+  updatedata() async {
+    try {
+      FirebaseFirestore _firestore = FirebaseFirestore.instance;
+      await _firestore
+          .collection('fines')
+          .doc(widget.docid)
+          .update({'status': "paid"});
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }

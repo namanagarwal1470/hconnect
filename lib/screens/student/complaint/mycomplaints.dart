@@ -18,6 +18,7 @@ class _mycomplaintsState extends State<mycomplaints> {
   List date = [];
   List status = [];
   List type = [];
+  List docid = [];
   bool isloading = true;
 
   @override
@@ -61,21 +62,22 @@ class _mycomplaintsState extends State<mycomplaints> {
                           itemCount: complaint.length,
                           itemBuilder: (context, index) {
                             return Cont(complaint[index], type[index],
-                                date[index], status[index]);
+                                date[index], status[index], docid[index]);
                           })),
             ),
           ],
         ));
   }
 
-  Widget Cont(String text2, String text3, String text4, String text6) {
+  Widget Cont(
+      String text2, String text3, String text4, String text6, String text1) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    mycomplaintdetails(text2, text3, text4, text6)));
+                    mycomplaintdetails(text2, text3, text4, text6, text1)));
       },
       child: Container(
           height: 80,
@@ -123,11 +125,11 @@ class _mycomplaintsState extends State<mycomplaints> {
           complaintdocs.map((e) => e['complaint'] as String).toList();
       List<String> t = complaintdocs.map((e) => e['type'] as String).toList();
       List<String> d = complaintdocs.map((e) => e['date'] as String).toList();
-
+      List<String> l = complaintdocs.map((e) => e.id as String).toList();
       List<String> s = complaintdocs.map((e) => e['status'] as String).toList();
       setState(() {
         complaint = c;
-
+        docid = l;
         date = d;
         type = t;
         status = s;
