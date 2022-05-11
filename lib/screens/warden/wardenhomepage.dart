@@ -26,89 +26,136 @@ class _wardenhomepageState extends State<wardenhomepage> {
     return Scaffold(
       drawer: Drawer(child: draweritems(context)),
       appBar: AppBar(
-        elevation: 0,
         title: appbardata(context),
-        backgroundColor: Colors.red,
+        elevation: 0,
+        backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => leavepage()));
-                },
-                child: Container(
-                    height: 150,
-                    margin: EdgeInsets.all(10),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Center(child: Text("All leaves"))),
+          Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Container(color: Colors.deepPurple)),
+                ],
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => complaintpage()));
-                },
-                child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(10),
-                    width: double.infinity,
-                    child: Center(child: Text("All Complaints"))),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => rooms()));
-                },
-                child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(10),
-                    width: double.infinity,
-                    child: Center(child: Text("Room management"))),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => finemanagementpage()));
-                },
-                child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(10),
-                    width: double.infinity,
-                    child: Center(child: Text("Fine management"))),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => studentpage()));
-                },
-                child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(20)),
-                    margin: EdgeInsets.all(10),
-                    width: double.infinity,
-                    child: Center(child: Text("All Students"))),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      contentPadding:
+                          EdgeInsets.only(left: 20, right: 20, top: 15),
+                      title: Text(
+                        'Welcome Back!',
+                        style: TextStyle(color: Colors.white, fontSize: 40),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => leavepage()))
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(25)),
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: Center(child: Text("All leaves")),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => complaintpage()))
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(25)),
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: Center(child: Text("All Complaints")),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => rooms()))
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(25)),
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: Center(child: Text("Room Details")),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => finemanagementpage()))
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(25)),
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            child: Center(child: Text("Fine Management")),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => studentpage()))
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(25)),
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: Center(child: Text("All Student Details")),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               )
             ],
-          )
+          ),
         ],
       ),
     );
@@ -120,7 +167,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
       padding: EdgeInsets.zero,
       children: [
         DrawerHeader(
-          decoration: BoxDecoration(color: Colors.red),
+          decoration: BoxDecoration(color: Colors.deepPurple),
           child: Center(
               child: Text(
             'H-connect',
@@ -148,7 +195,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.user),
-                      color: Colors.red,
+                      color: Colors.deepPurple,
                       onPressed: () {},
                     ),
                   ),
@@ -183,7 +230,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.usersSlash),
-                      color: Colors.red,
+                      color: Colors.deepPurple,
                       onPressed: () {},
                     ),
                   ),
@@ -220,7 +267,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
               padding: EdgeInsets.all(5),
               icon: Icon(Icons.verified_sharp),
               iconSize: 15,
-              color: Colors.red,
+              color: Colors.deepPurple,
               onPressed: () {
                 Navigator.push(
                     context,

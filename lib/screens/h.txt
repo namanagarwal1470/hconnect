@@ -1,0 +1,118 @@
+Scaffold(
+      drawer: Drawer(child: draweritems(context)),
+      appBar: AppBar(
+        title: appbardata(context),
+        elevation: 0,
+        backgroundColor: Colors.deepPurple,
+      ),
+      body: ListView(
+        children: [
+          Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: Container(color: Colors.deepPurple)),
+                ],
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      contentPadding:
+                          EdgeInsets.only(left: 20, right: 20, top: 20),
+                      title: Text(
+                        'Welcome Back!',
+                        style: TextStyle(color: Colors.white, fontSize: 40),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => leavepage()));
+                          },
+                          child: Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            color: Colors.red,
+                            child: Center(child: Text("All leaves")),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => {
+                           Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => complaintpage()));
+                          },
+                          child: Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            color: Colors.red,
+                            child: Center(child: Text("All Complaints")),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => rooms()));
+                          },
+                          child: Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            color: Colors.red,
+                            child: Center(child: Text("Room Details")),
+                          ),
+                        ),
+                         GestureDetector(
+                          onTap: () => {
+                           Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => finemanagementpage()));
+                          },
+                          child: Container(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            color: Colors.red,
+                            child: Center(child: Text("Fine Management")),
+                          ),
+                        )
+                      ],
+                    ),
+                     SizedBox(height: 20),
+                    Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () => {
+                                Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => studentpage()));
+                              },
+                              child: Container(
+                                height: 200,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                color: Colors.red,
+                                child: Center(child: Text("All Student Details")),
+                              ),
+                            ),
+                          ],
+                        )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );

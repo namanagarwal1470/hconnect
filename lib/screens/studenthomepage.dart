@@ -34,117 +34,63 @@ class _studenthomepageState extends State<studenthomepage> {
     return Scaffold(
       drawer: Drawer(child: draweritems(context)),
       appBar: AppBar(
-        title: appbardata(context),
         elevation: 0,
-        backgroundColor: Colors.deepPurple,
+        title: appbardata(context),
+        backgroundColor: Colors.red,
       ),
       body: ListView(
         children: [
-          Stack(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: Container(color: Colors.deepPurple)),
-                ],
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LeaveForm(widget.enrollno)))
+                },
+                child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Center(child: Text("Apply for leave"))),
               ),
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      contentPadding:
-                          EdgeInsets.only(left: 20, right: 20, top: 20),
-                      title: Text(
-                        'Welcome Back!',
-                        style: TextStyle(color: Colors.white, fontSize: 40),
-                      ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        LeaveForm(widget.enrollno)))
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Apply for leave")),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ComplainForm(widget.enrollno)))
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Register Complaint")),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => wardenui()))
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Warden Details")),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        myfine(widget.enrollno)))
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Pay fines")),
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+              GestureDetector(
+                onTap: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ComplainForm(widget.enrollno)))
+                },
+                child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Center(child: Text("Register Complaint"))),
+              ),
+              GestureDetector(
+                onTap: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => wardenui()))
+                },
+                child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.all(10),
+                    width: double.infinity,
+                    child: Center(child: Text("Warden Details"))),
               )
             ],
-          ),
+          )
         ],
       ),
     );
@@ -156,7 +102,7 @@ class _studenthomepageState extends State<studenthomepage> {
       padding: EdgeInsets.zero,
       children: [
         DrawerHeader(
-          decoration: BoxDecoration(color: Colors.deepPurple),
+          decoration: BoxDecoration(color: Colors.red),
           child: Center(
               child: Text(
             'H-connect',
@@ -184,7 +130,7 @@ class _studenthomepageState extends State<studenthomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.user),
-                      color: Colors.deepPurple,
+                      color: Colors.red,
                       onPressed: () {},
                     ),
                   ),
@@ -218,7 +164,7 @@ class _studenthomepageState extends State<studenthomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.user),
-                      color: Colors.deepPurple,
+                      color: Colors.red,
                       onPressed: () {},
                     ),
                   ),
@@ -252,7 +198,7 @@ class _studenthomepageState extends State<studenthomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.user),
-                      color: Colors.deepPurple,
+                      color: Colors.red,
                       onPressed: () {},
                     ),
                   ),
@@ -286,7 +232,7 @@ class _studenthomepageState extends State<studenthomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.user),
-                      color: Colors.deepPurple,
+                      color: Colors.red,
                       onPressed: () {},
                     ),
                   ),
@@ -321,7 +267,7 @@ class _studenthomepageState extends State<studenthomepage> {
                     child: IconButton(
                       padding: EdgeInsets.all(5),
                       icon: Icon(FontAwesomeIcons.usersSlash),
-                      color: Colors.deepPurple,
+                      color: Colors.red,
                       onPressed: () {},
                     ),
                   ),
@@ -358,7 +304,7 @@ class _studenthomepageState extends State<studenthomepage> {
               padding: EdgeInsets.all(5),
               icon: Icon(Icons.person),
               iconSize: 30,
-              color: Colors.deepPurple,
+              color: Colors.red,
               onPressed: () {
                 Navigator.push(
                     context,
