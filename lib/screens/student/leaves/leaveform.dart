@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class LeaveForm extends StatefulWidget {
   String enrollno;
@@ -63,6 +64,24 @@ class _LeaveFormState extends State<LeaveForm> {
           ),
           keyboardType: TextInputType.datetime,
           controller: departdate,
+          onTap: () async {
+            var pickeddate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101));
+
+            if (pickeddate != null) {
+              String formatteddate =
+                  DateFormat('dd-MM-yyyy').format(pickeddate);
+
+              setState(() {
+                departdate.text = formatteddate;
+              });
+            } else {
+              print("Date is not selected");
+            }
+          },
         ),
         SizedBox(height: 20),
         TextField(
@@ -79,6 +98,24 @@ class _LeaveFormState extends State<LeaveForm> {
           ),
           keyboardType: TextInputType.datetime,
           controller: arrivaldate,
+          onTap: () async {
+            var pickedDate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101));
+
+            if (pickedDate != null) {
+              String formattedDate =
+                  DateFormat('dd-MM-yyyy').format(pickedDate);
+
+              setState(() {
+                arrivaldate.text = formattedDate;
+              });
+            } else {
+              print("Date is not selected");
+            }
+          },
         ),
         SizedBox(height: 20),
         TextField(
@@ -95,6 +132,20 @@ class _LeaveFormState extends State<LeaveForm> {
           ),
           keyboardType: TextInputType.datetime,
           controller: departtime,
+          onTap: () async {
+            var pickedTime = await showTimePicker(
+              initialTime: TimeOfDay.now(),
+              context: context,
+            );
+
+            if (pickedTime != null) {
+              setState(() {
+                departtime.text = pickedTime.format(context);
+              });
+            } else {
+              print("Time is not selected");
+            }
+          },
         ),
         SizedBox(height: 20),
         TextField(
@@ -111,6 +162,20 @@ class _LeaveFormState extends State<LeaveForm> {
           ),
           keyboardType: TextInputType.datetime,
           controller: arrivaltime,
+          onTap: () async {
+            var pickedTime = await showTimePicker(
+              initialTime: TimeOfDay.now(),
+              context: context,
+            );
+
+            if (pickedTime != null) {
+              setState(() {
+                arrivaltime.text = pickedTime.format(context);
+              });
+            } else {
+              print("Time is not selected");
+            }
+          },
         ),
         SizedBox(height: 20),
         TextField(

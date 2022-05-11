@@ -68,7 +68,6 @@ class _loginpageState extends State<loginpage> {
                   loginbutton(context),
                 ],
               ),
-              forgotpassword(),
             ],
           ),
         ),
@@ -128,17 +127,6 @@ class _loginpageState extends State<loginpage> {
         height: 40,
       ),
     );
-  }
-
-  Widget forgotpassword() {
-    return Container(
-        margin: EdgeInsets.all(20),
-        child: Center(
-          child: Text(
-            "Forget Password?",
-            style: TextStyle(color: Colors.blue, fontSize: 20),
-          ),
-        ));
   }
 
   fetch_all_data() async {

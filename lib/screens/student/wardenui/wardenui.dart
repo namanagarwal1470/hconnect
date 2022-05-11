@@ -30,12 +30,6 @@ class _wardenuiState extends State<wardenui> {
             ),
             DataColumn(
               label: Text(
-                'Email',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            DataColumn(
-              label: Text(
                 'Phoneno',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -50,26 +44,23 @@ class _wardenuiState extends State<wardenui> {
           rows: <DataRow>[
             DataRow(
               cells: <DataCell>[
-                DataCell(Text('Sarah')),
-                DataCell(Text('19')),
-                DataCell(Text('Student')),
-                DataCell(Text('Professor')),
+                DataCell(Text('parmeet')),
+                DataCell(Text('9363638383')),
+                DataCell(Text('3rd')),
               ],
             ),
             DataRow(
               cells: <DataCell>[
-                DataCell(Text('Janine')),
-                DataCell(Text('43')),
-                DataCell(Text('Professor')),
-                DataCell(Text('Professor')),
+                DataCell(Text('ram')),
+                DataCell(Text('9828282282')),
+                DataCell(Text('8th')),
               ],
             ),
             DataRow(
               cells: <DataCell>[
                 DataCell(Text('William')),
-                DataCell(Text('27')),
-                DataCell(Text('Associate Professor')),
-                DataCell(Text('Professor')),
+                DataCell(Text('9763737373')),
+                DataCell(Text('8th')),
               ],
             ),
           ],

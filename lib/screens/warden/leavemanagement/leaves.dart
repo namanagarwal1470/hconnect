@@ -14,6 +14,8 @@ class _leavepageState extends State<leavepage> {
   List enrollno = [];
   List startdate = [];
   List enddate = [];
+  List starttime = [];
+  List endtime = [];
   List reason = [];
   List address = [];
 
@@ -54,38 +56,58 @@ class _leavepageState extends State<leavepage> {
                       : ListView.builder(
                           itemCount: enrollno.length,
                           itemBuilder: (context, index) {
-                            return Cont(enrollno[index], startdate[index],
-                                enddate[index], reason[index], address[index]);
+                            return Cont(
+                                enrollno[index],
+                                startdate[index],
+                                enddate[index],
+                                reason[index],
+                                address[index],
+                                starttime[index],
+                                endtime[index]);
                           })),
             ),
           ],
         ));
   }
 
-  Widget Cont(
-      String text1, String text2, String text3, String text4, String text5) {
+  Widget Cont(String text1, String text2, String text3, String text4,
+      String text5, String text6, String text7) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    studentleave(text1, text2, text3, text4, text5)));
+                builder: (context) => studentleave(
+                    text1, text2, text3, text4, text5, text6, text7)));
       },
       child: Container(
-          height: 60,
+          height: 80,
           margin: EdgeInsets.only(left: 15, right: 15, top: 12),
           decoration: BoxDecoration(
               color: Colors.grey[300], borderRadius: BorderRadius.circular(40)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Flexible(
+                child: Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: Text(
+                    text1,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
               Container(
                 margin: EdgeInsets.only(left: 20),
                 child: Text(
-                  text1,
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  text2 + " -- " + text3,
+                  style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
             ],
@@ -101,6 +123,10 @@ class _leavepageState extends State<leavepage> {
       List<String> e = leavesdocs.map((e) => e['enrollno'] as String).toList();
       List<String> d =
           leavesdocs.map((e) => e['departdate'] as String).toList();
+      List<String> dt =
+          leavesdocs.map((e) => e['departtime'] as String).toList();
+      List<String> at =
+          leavesdocs.map((e) => e['arrivaltime'] as String).toList();
       List<String> a =
           leavesdocs.map((e) => e['arrivaldate'] as String).toList();
       List<String> r = leavesdocs.map((e) => e['reason'] as String).toList();
@@ -111,6 +137,8 @@ class _leavepageState extends State<leavepage> {
         enddate = a;
         reason = r;
         address = ad;
+        starttime = dt;
+        endtime = at;
         isloading = false;
       });
     } catch (e) {

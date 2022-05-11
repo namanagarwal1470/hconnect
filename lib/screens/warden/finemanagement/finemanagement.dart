@@ -126,7 +126,7 @@ class _finemanagementpageState extends State<finemanagementpage> {
           await FirebaseFirestore.instance.collection('fines');
       List<DocumentSnapshot> finedocs = (await data.get()).docs;
       List<String> l = finedocs.map((e) => e.id as String).toList();
-      print(l);
+
       List<String> e = finedocs.map((e) => e['enrollno'] as String).toList();
       List<String> d = finedocs.map((e) => e['date'] as String).toList();
       List<String> r = finedocs.map((e) => e['reason'] as String).toList();

@@ -6,8 +6,10 @@ class studentleave extends StatefulWidget {
   String enddate;
   String reason;
   String address;
-  studentleave(
-      this.enrollno, this.startdate, this.enddate, this.reason, this.address);
+  String starttime;
+  String endtime;
+  studentleave(this.enrollno, this.startdate, this.enddate, this.reason,
+      this.address, this.starttime, this.endtime);
 
   @override
   State<studentleave> createState() => _studentleaveState();
@@ -68,12 +70,46 @@ class _studentleaveState extends State<studentleave> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      "Start Time",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.starttime,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                )),
+            Container(
+                margin: EdgeInsets.only(left: 15, top: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
                       "End Date",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       widget.enddate,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ],
+                )),
+            Container(
+                margin: EdgeInsets.only(left: 15, top: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "End Time",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      widget.endtime,
                       style: TextStyle(fontSize: 18),
                     ),
                   ],

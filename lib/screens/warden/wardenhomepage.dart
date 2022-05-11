@@ -5,6 +5,7 @@ import 'package:hconnect/screens/warden/finemanagement/createfine.dart';
 import 'package:hconnect/screens/warden/finemanagement/finemanagement.dart';
 import 'package:hconnect/screens/warden/leavemanagement/leaves.dart';
 import 'package:hconnect/screens/onboard/login.dart';
+import 'package:hconnect/screens/warden/roommanagement/rooms.dart';
 import 'package:hconnect/screens/warden/students/students.dart';
 import 'package:hconnect/screens/warden/wardenprofile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +66,7 @@ class _wardenhomepageState extends State<wardenhomepage> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => createfine()));
+                      MaterialPageRoute(builder: (context) => rooms()));
                 },
                 child: Container(
                     height: 150,
