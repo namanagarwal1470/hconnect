@@ -13,12 +13,37 @@ class rooms extends StatefulWidget {
 class _roomsState extends State<rooms> {
   bool isloading = true;
   List roomno = [];
+  List roomno2 = [];
   List name = [];
+  TextEditingController editingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetch_all_data();
+  }
+
+  void filterSearchResults(String query) {
+    var dummySearchList = [];
+    dummySearchList.addAll(roomno2);
+    if (query.isNotEmpty) {
+      List<String> dummyListData = [];
+      dummySearchList.forEach((item) {
+        if (item.contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        roomno.clear();
+        roomno.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        roomno.clear();
+        roomno = List.from(roomno2);
+      });
+    }
   }
 
   @override
@@ -49,6 +74,35 @@ class _roomsState extends State<rooms> {
                         style: TextStyle(color: Colors.white, fontSize: 30)),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, bottom: 20.0),
+                child: TextField(
+                  cursorColor: Colors.white,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController,
+                  decoration: InputDecoration(
+                      iconColor: Colors.white,
+                      labelText: "Search",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.black),
+                      hintText: "Search",
+                      prefixIcon: Icon(Icons.search, color: Colors.white),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(40.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(40.0)))),
+                ),
               ),
               Expanded(
                 flex: 1,
@@ -113,6 +167,8 @@ class _roomsState extends State<rooms> {
       List<String> n = leavesdocs.map((e) => e['name'] as String).toList();
       setState(() {
         roomno = r;
+        roomno2 = List.from(roomno);
+
         name = n;
         isloading = false;
       });

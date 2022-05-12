@@ -11,14 +11,53 @@ class studentpage extends StatefulWidget {
 
 class _studentpageState extends State<studentpage> {
   List enrollno = [];
+  List enrollno2 = [];
+  List name2 = [];
   List roomno = [];
+  List roomno2 = [];
   List names = [];
   bool isloading = true;
+  TextEditingController editingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     fetch_all_data();
+  }
+
+  void filterSearchResults(String query) {
+    var dummySearchList = [];
+    dummySearchList.addAll(name2);
+    if (query.toLowerCase().isNotEmpty) {
+      List<String> dummyroomdata = [];
+      List<String> dummyenrolldata = [];
+      List<String> dummynamedata = [];
+      dummySearchList.forEach((item) {
+        if (item.toLowerCase().contains(query)) {
+          dummynamedata.add(item);
+          dummyenrolldata.add(enrollno2[name2.indexOf(item)]);
+          dummyroomdata.add(roomno2[name2.indexOf(item)]);
+        }
+      });
+      setState(() {
+        enrollno.clear();
+        roomno.clear();
+        names.clear();
+        enrollno.addAll(dummyenrolldata);
+        names.addAll(dummynamedata);
+        roomno.addAll(dummyroomdata);
+      });
+      return;
+    } else {
+      setState(() {
+        enrollno.clear();
+        roomno.clear();
+        names.clear();
+        roomno = List.from(roomno2);
+        names = List.from(name2);
+        enrollno = List.from(enrollno2);
+      });
+    }
   }
 
   @override
@@ -50,22 +89,52 @@ class _studentpageState extends State<studentpage> {
                   ),
                 ],
               ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, bottom: 20.0),
+                child: TextField(
+                  cursorColor: Colors.white,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    filterSearchResults(value);
+                  },
+                  controller: editingController,
+                  decoration: InputDecoration(
+                      iconColor: Colors.white,
+                      labelText: "Search",
+                      labelStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.black),
+                      hintText: "Search",
+                      prefixIcon: Icon(Icons.search, color: Colors.white),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(40.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.white, width: 2.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(40.0)))),
+                ),
+              ),
               Expanded(
                 flex: 1,
                 child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(50))),
-                    child: isloading
-                        ? Center(child: CircularProgressIndicator())
-                        : ListView.builder(
-                            itemCount: enrollno.length,
-                            itemBuilder: (context, index) {
-                              return Cont(
-                                  enrollno[index], names[index], roomno[index]);
-                            })),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50))),
+                  child: isloading
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          itemCount: enrollno.length,
+                          itemBuilder: (context, index) {
+                            return Cont(
+                                enrollno[index], names[index], roomno[index]);
+                          }),
+                ),
               ),
             ],
           ),
@@ -122,6 +191,7 @@ class _studentpageState extends State<studentpage> {
           await FirebaseFirestore.instance.collection('Userprofile');
       List<DocumentSnapshot> studentdocs =
           (await data.where("type", isEqualTo: "student").get()).docs;
+
       List<String> e = studentdocs.map((e) => e['enrollno'] as String).toList();
       List<String> r = studentdocs.map((e) => e['roomno'] as String).toList();
       List<String> n = studentdocs.map((e) => e['name'] as String).toList();
@@ -130,6 +200,9 @@ class _studentpageState extends State<studentpage> {
         enrollno = e;
         roomno = r;
         names = n;
+        roomno2 = List.from(roomno);
+        enrollno2 = List.from(enrollno);
+        name2 = List.from(names);
 
         isloading = false;
       });

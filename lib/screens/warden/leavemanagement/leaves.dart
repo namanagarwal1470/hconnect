@@ -14,6 +14,7 @@ class _leavepageState extends State<leavepage> {
   List enrollno = [];
   List startdate = [];
   List enddate = [];
+
   List starttime = [];
   List endtime = [];
   List reason = [];
@@ -147,6 +148,7 @@ class _leavepageState extends State<leavepage> {
         enrollno = e;
         startdate = d;
         enddate = a;
+
         reason = r;
         address = ad;
         starttime = dt;

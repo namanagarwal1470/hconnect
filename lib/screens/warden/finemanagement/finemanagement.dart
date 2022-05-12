@@ -13,6 +13,7 @@ class finemanagementpage extends StatefulWidget {
 
 class _finemanagementpageState extends State<finemanagementpage> {
   List enrollno = [];
+
   List reason = [];
   List date = [];
   List status = [];
@@ -147,11 +148,13 @@ class _finemanagementpageState extends State<finemanagementpage> {
       List<String> t = finedocs.map((e) => e['type'] as String).toList();
       setState(() {
         enrollno = e;
+
         amount = a;
         reason = r;
         date = d;
         status = s;
         type = t;
+
         isloading = false;
       });
     } catch (e) {

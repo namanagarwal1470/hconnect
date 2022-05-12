@@ -11,11 +11,14 @@ class complaintpage extends StatefulWidget {
 
 class _complaintpageState extends State<complaintpage> {
   List enrollno = [];
+
   List complaint = [];
+
   List roomno = [];
   List date = [];
   List status = [];
   List type = [];
+
   bool isloading = true;
 
   @override
@@ -67,12 +70,13 @@ class _complaintpageState extends State<complaintpage> {
                             itemCount: enrollno.length,
                             itemBuilder: (context, index) {
                               return Cont(
-                                  enrollno[index],
-                                  complaint[index],
-                                  type[index],
-                                  date[index],
-                                  roomno[index],
-                                  status[index]);
+                                enrollno[index],
+                                complaint[index],
+                                type[index],
+                                date[index],
+                                roomno[index],
+                                status[index],
+                              );
                             })),
               ),
             ],
@@ -80,8 +84,14 @@ class _complaintpageState extends State<complaintpage> {
         ));
   }
 
-  Widget Cont(String text1, String text2, String text3, String text4,
-      String text5, String text6) {
+  Widget Cont(
+    String text1,
+    String text2,
+    String text3,
+    String text4,
+    String text5,
+    String text6,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -139,13 +149,17 @@ class _complaintpageState extends State<complaintpage> {
       List<String> d = complaintdocs.map((e) => e['date'] as String).toList();
       List<String> r = complaintdocs.map((e) => e['roomno'] as String).toList();
       List<String> s = complaintdocs.map((e) => e['status'] as String).toList();
+
       setState(() {
         enrollno = e;
+
         complaint = c;
         roomno = r;
         date = d;
         type = t;
+
         status = s;
+
         isloading = false;
       });
     } catch (e) {
