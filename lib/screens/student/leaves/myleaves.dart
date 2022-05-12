@@ -31,46 +31,58 @@ class _myleavesState extends State<myleaves> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.deepPurple,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                arrowbackbutton(context),
-                Container(
-                  height: (MediaQuery.of(context).size.height) * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  margin: EdgeInsets.only(left: 10, top: 50),
-                  child: Text("All leaves",
-                      style: TextStyle(color: Colors.white, fontSize: 30)),
-                ),
-                Createleaves(context)
-              ],
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  child: isloading
-                      ? Center(child: CircularProgressIndicator())
-                      : ListView.builder(
-                          itemCount: reason.length,
-                          itemBuilder: (context, index) {
-                            return Cont(
-                                startdate[index],
-                                enddate[index],
-                                reason[index],
-                                address[index],
-                                starttime[index],
-                                endtime[index]);
-                          })),
-            ),
-          ],
+        body: RefreshIndicator(
+          onRefresh: () {
+            return Future.delayed(
+              Duration(seconds: 1),
+              () {
+                setState(() {
+                  fetch_all_data();
+                });
+              },
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  arrowbackbutton(context),
+                  Container(
+                    height: (MediaQuery.of(context).size.height) * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    margin: EdgeInsets.only(left: 10, top: 50),
+                    child: Text("All leaves",
+                        style: TextStyle(color: Colors.white, fontSize: 30)),
+                  ),
+                  Createleaves(context)
+                ],
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50))),
+                    child: isloading
+                        ? Center(child: CircularProgressIndicator())
+                        : ListView.builder(
+                            itemCount: reason.length,
+                            itemBuilder: (context, index) {
+                              return Cont(
+                                  startdate[index],
+                                  enddate[index],
+                                  reason[index],
+                                  address[index],
+                                  starttime[index],
+                                  endtime[index]);
+                            })),
+              ),
+            ],
+          ),
         ));
   }
 

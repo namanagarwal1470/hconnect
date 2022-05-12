@@ -47,201 +47,213 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
                     Navigator.pop(context),
                   },
               child: Icon(Icons.arrow_back))),
-      body: ListView(children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Name",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      name,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Enrollno",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      widget.enrollno,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "DOB",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      dob,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Branch & year",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      branch + '-' + year,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Email",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      email,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Mobilno",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      mobileno,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Blood Group",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      bloodgroup,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Hostel name & roomno",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      hostelname + "-" + roomno,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "parentsname & mobileno",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      parentsname + "-" + parentsmobile,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "local guardian name & mobileno",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      localguardianname + "-" + localguardianmobile,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-            Container(
-                margin: EdgeInsets.only(left: 15, top: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "address",
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      address,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                )),
-          ],
-        )
-      ]),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(
+            Duration(seconds: 1),
+            () {
+              setState(() {
+                fetch_all_data();
+              });
+            },
+          );
+        },
+        child: ListView(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Name",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        name,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Enrollno",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.enrollno,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "DOB",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        dob,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Branch & year",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        branch + '-' + year,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        email,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Mobilno",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        mobileno,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Blood Group",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        bloodgroup,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Hostel name & roomno",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        hostelname + "-" + roomno,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "parentsname & mobileno",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        parentsname + "-" + parentsmobile,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "local guardian name & mobileno",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        localguardianname + "-" + localguardianmobile,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+              Container(
+                  margin: EdgeInsets.only(left: 15, top: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "address",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        address,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  )),
+            ],
+          )
+        ]),
+      ),
     );
   }
 

@@ -31,46 +31,58 @@ class _finemanagementpageState extends State<finemanagementpage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.deepPurple,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                arrowbackbutton(context),
-                Container(
-                  height: (MediaQuery.of(context).size.height) * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  margin: EdgeInsets.only(top: 50),
-                  child: Text("All Fines",
-                      style: TextStyle(color: Colors.white, fontSize: 30)),
-                ),
-                Createfine(context)
-              ],
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  child: isloading
-                      ? Center(child: CircularProgressIndicator())
-                      : ListView.builder(
-                          itemCount: enrollno.length,
-                          itemBuilder: (context, index) {
-                            return Cont(
-                                enrollno[index],
-                                date[index],
-                                reason[index],
-                                status[index],
-                                amount[index],
-                                type[index]);
-                          })),
-            ),
-          ],
+        body: RefreshIndicator(
+          onRefresh: () {
+            return Future.delayed(
+              Duration(seconds: 1),
+              () {
+                setState(() {
+                  fetch_all_data();
+                });
+              },
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  arrowbackbutton(context),
+                  Container(
+                    height: (MediaQuery.of(context).size.height) * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    margin: EdgeInsets.only(top: 50),
+                    child: Text("All Fines",
+                        style: TextStyle(color: Colors.white, fontSize: 30)),
+                  ),
+                  Createfine(context)
+                ],
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50))),
+                    child: isloading
+                        ? Center(child: CircularProgressIndicator())
+                        : ListView.builder(
+                            itemCount: enrollno.length,
+                            itemBuilder: (context, index) {
+                              return Cont(
+                                  enrollno[index],
+                                  date[index],
+                                  reason[index],
+                                  status[index],
+                                  amount[index],
+                                  type[index]);
+                            })),
+              ),
+            ],
+          ),
         ));
   }
 

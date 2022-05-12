@@ -38,67 +38,81 @@ class _studentprofileState extends State<studentprofile> {
     double w_factor = MediaQuery.of(context).size.width / 360;
     double h_factor = MediaQuery.of(context).size.height / 800;
     return Scaffold(
-      body: ListView(children: [
-        Column(
-          children: [
-            Container(
-              child: Container(
-                  margin: EdgeInsets.all(10),
-                  child: Center(
-                    child: Text(
-                      "Profile",
-                      style: TextStyle(color: Colors.white, fontSize: 35),
-                    ),
-                  )),
-              height: 150,
-              width: double.infinity,
-              margin: EdgeInsets.only(bottom: 20, right: 15, left: 15),
-              decoration: BoxDecoration(
-                  color: Colors.deepPurple,
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(50))),
-            ),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Name:"),
-            textfield(h_factor * 50, w_factor * 312, true, name),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Enrollno:"),
-            textfield(h_factor * 50, w_factor * 312, true, widget.enrollno),
-            textcontainer(h_factor * 23, w_factor * 312, h_factor * 16, "DOB:"),
-            textfield(h_factor * 50, w_factor * 312, true, dob),
-            textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
-                "Branch & Year :"),
-            textfield(h_factor * 50, w_factor * 312, true, branch + "-" + year),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Email :"),
-            textfield(h_factor * 50, w_factor * 312, true, email),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Mobileno:"),
-            textfield(h_factor * 50, w_factor * 312, true, mobileno),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Blood group:"),
-            textfield(h_factor * 50, w_factor * 312, true, bloodgroup),
-            textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
-                "Hostel name & Room no :"),
-            textfield(
-                h_factor * 50, w_factor * 312, true, hostelname + "-" + roomno),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Floor:"),
-            textfield(h_factor * 50, w_factor * 312, true, floor),
-            textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
-                "Parents name & Mobileno:"),
-            textfield(h_factor * 50, w_factor * 312, true,
-                parentsname + "-" + parentsmobile),
-            textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
-                "Local Guardian name & Mobileno:"),
-            textfield(h_factor * 50, w_factor * 312, true,
-                localguardianname + "-" + localguardianmobile),
-            textcontainer(
-                h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
-            textfield(h_factor * 50, w_factor * 312, true, address),
-          ],
-        )
-      ]),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return Future.delayed(
+            Duration(seconds: 1),
+            () {
+              setState(() {
+                fetch_all_data();
+              });
+            },
+          );
+        },
+        child: ListView(children: [
+          Column(
+            children: [
+              Container(
+                child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        "Profile",
+                        style: TextStyle(color: Colors.white, fontSize: 35),
+                      ),
+                    )),
+                height: 150,
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 20, right: 15, left: 15),
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple,
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(50))),
+              ),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Name:"),
+              textfield(h_factor * 50, w_factor * 312, true, name),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Enrollno:"),
+              textfield(h_factor * 50, w_factor * 312, true, widget.enrollno),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "DOB:"),
+              textfield(h_factor * 50, w_factor * 312, true, dob),
+              textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
+                  "Branch & Year :"),
+              textfield(
+                  h_factor * 50, w_factor * 312, true, branch + "-" + year),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Email :"),
+              textfield(h_factor * 50, w_factor * 312, true, email),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Mobileno:"),
+              textfield(h_factor * 50, w_factor * 312, true, mobileno),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Blood group:"),
+              textfield(h_factor * 50, w_factor * 312, true, bloodgroup),
+              textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
+                  "Hostel name & Room no :"),
+              textfield(h_factor * 50, w_factor * 312, true,
+                  hostelname + "-" + roomno),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Floor:"),
+              textfield(h_factor * 50, w_factor * 312, true, floor),
+              textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
+                  "Parents name & Mobileno:"),
+              textfield(h_factor * 50, w_factor * 312, true,
+                  parentsname + "-" + parentsmobile),
+              textcontainer(h_factor * 23, w_factor * 312, h_factor * 16,
+                  "Local Guardian name & Mobileno:"),
+              textfield(h_factor * 50, w_factor * 312, true,
+                  localguardianname + "-" + localguardianmobile),
+              textcontainer(
+                  h_factor * 23, w_factor * 312, h_factor * 16, "Address:"),
+              textfield(h_factor * 50, w_factor * 312, true, address),
+            ],
+          )
+        ]),
+      ),
     );
   }
 

@@ -31,41 +31,53 @@ class _mycomplaintsState extends State<mycomplaints> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.deepPurple,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                arrowbackbutton(context),
-                Container(
-                  height: (MediaQuery.of(context).size.height) * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  margin: EdgeInsets.only(left: 10, top: 50),
-                  child: Text("My Complaints",
-                      style: TextStyle(color: Colors.white, fontSize: 30)),
-                ),
-                Createcomplaint(context)
-              ],
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  child: isloading
-                      ? Center(child: CircularProgressIndicator())
-                      : ListView.builder(
-                          itemCount: complaint.length,
-                          itemBuilder: (context, index) {
-                            return Cont(complaint[index], type[index],
-                                date[index], status[index], docid[index]);
-                          })),
-            ),
-          ],
+        body: RefreshIndicator(
+          onRefresh: () {
+            return Future.delayed(
+              Duration(seconds: 1),
+              () {
+                setState(() {
+                  fetch_all_data();
+                });
+              },
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  arrowbackbutton(context),
+                  Container(
+                    height: (MediaQuery.of(context).size.height) * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    margin: EdgeInsets.only(left: 10, top: 50),
+                    child: Text("My Complaints",
+                        style: TextStyle(color: Colors.white, fontSize: 30)),
+                  ),
+                  Createcomplaint(context)
+                ],
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50))),
+                    child: isloading
+                        ? Center(child: CircularProgressIndicator())
+                        : ListView.builder(
+                            itemCount: complaint.length,
+                            itemBuilder: (context, index) {
+                              return Cont(complaint[index], type[index],
+                                  date[index], status[index], docid[index]);
+                            })),
+              ),
+            ],
+          ),
         ));
   }
 

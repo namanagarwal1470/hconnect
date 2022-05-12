@@ -29,44 +29,56 @@ class _leavepageState extends State<leavepage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.deepPurple,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                arrowbackbutton(context),
-                Container(
-                  height: (MediaQuery.of(context).size.height) * 0.1,
-                  margin: EdgeInsets.only(left: 10, top: 50),
-                  child: Text("All leaves",
-                      style: TextStyle(color: Colors.white, fontSize: 30)),
-                ),
-              ],
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  child: isloading
-                      ? Center(child: CircularProgressIndicator())
-                      : ListView.builder(
-                          itemCount: enrollno.length,
-                          itemBuilder: (context, index) {
-                            return Cont(
-                                enrollno[index],
-                                startdate[index],
-                                enddate[index],
-                                reason[index],
-                                address[index],
-                                starttime[index],
-                                endtime[index]);
-                          })),
-            ),
-          ],
+        body: RefreshIndicator(
+          onRefresh: () {
+            return Future.delayed(
+              Duration(seconds: 1),
+              () {
+                setState(() {
+                  fetch_all_data();
+                });
+              },
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  arrowbackbutton(context),
+                  Container(
+                    height: (MediaQuery.of(context).size.height) * 0.1,
+                    margin: EdgeInsets.only(left: 10, top: 50),
+                    child: Text("All leaves",
+                        style: TextStyle(color: Colors.white, fontSize: 30)),
+                  ),
+                ],
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(50),
+                            topRight: Radius.circular(50))),
+                    child: isloading
+                        ? Center(child: CircularProgressIndicator())
+                        : ListView.builder(
+                            itemCount: enrollno.length,
+                            itemBuilder: (context, index) {
+                              return Cont(
+                                  enrollno[index],
+                                  startdate[index],
+                                  enddate[index],
+                                  reason[index],
+                                  address[index],
+                                  starttime[index],
+                                  endtime[index]);
+                            })),
+              ),
+            ],
+          ),
         ));
   }
 

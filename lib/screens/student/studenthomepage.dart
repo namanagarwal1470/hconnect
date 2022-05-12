@@ -253,6 +253,7 @@ class _studenthomepageState extends State<studenthomepage> {
               )
             ],
           ),
+          SizedBox(height: 50)
         ],
       ),
     );
