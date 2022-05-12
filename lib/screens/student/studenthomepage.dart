@@ -75,11 +75,38 @@ class _studenthomepageState extends State<studenthomepage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.red,
+                                color: Colors.white,
+                                boxShadow: [
+                                  //background color of box
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 128, 89, 196),
+                                    // soften the shadow
+                                    //extend the shadow
+                                    spreadRadius: 1.0,
+                                    blurRadius: 5.0,
+                                    offset: Offset(
+                                      3.0, // Move to right 10  horizontally
+                                      3.0, // Move to bottom 10 Vertically
+                                    ),
+                                  )
+                                ],
                                 borderRadius: BorderRadius.circular(25)),
                             height: 200,
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Apply for leave")),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Apply for",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                Text(
+                                  "leave",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         GestureDetector(
@@ -92,11 +119,38 @@ class _studenthomepageState extends State<studenthomepage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.red,
+                                boxShadow: [
+                                  //background color of box
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 128, 89, 196),
+                                    // soften the shadow
+                                    //extend the shadow
+                                    spreadRadius: 1.0,
+                                    blurRadius: 5.0,
+                                    offset: Offset(
+                                      3.0, // Move to right 10  horizontally
+                                      3.0, // Move to bottom 10 Vertically
+                                    ),
+                                  )
+                                ],
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(25)),
                             height: 200,
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Register Complaint")),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Register",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                Text(
+                                  "Complaint",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -114,11 +168,38 @@ class _studenthomepageState extends State<studenthomepage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.red,
+                                boxShadow: [
+                                  //background color of box
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 128, 89, 196),
+                                    // soften the shadow
+                                    //extend the shadow
+                                    spreadRadius: 1.0,
+                                    blurRadius: 5.0,
+                                    offset: Offset(
+                                      3.0, // Move to right 10  horizontally
+                                      3.0, // Move to bottom 10 Vertically
+                                    ),
+                                  )
+                                ],
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(25)),
                             height: 200,
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Warden Details")),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Warden",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                Text(
+                                  "Details",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         GestureDetector(
@@ -131,11 +212,38 @@ class _studenthomepageState extends State<studenthomepage> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.red,
+                                boxShadow: [
+                                  //background color of box
+                                  BoxShadow(
+                                    color: Color.fromARGB(255, 128, 89, 196),
+                                    // soften the shadow
+                                    //extend the shadow
+                                    spreadRadius: 1.0,
+                                    blurRadius: 5.0,
+                                    offset: Offset(
+                                      3.0, // Move to right 10  horizontally
+                                      3.0, // Move to bottom 10 Vertically
+                                    ),
+                                  )
+                                ],
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(25)),
                             height: 200,
                             width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Pay fines")),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Pay",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                Text(
+                                  "Fines",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],

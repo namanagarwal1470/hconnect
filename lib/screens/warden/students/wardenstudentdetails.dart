@@ -41,6 +41,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
     return Scaffold(
       appBar: AppBar(
           title: Text(name),
+          backgroundColor: Colors.deepPurple,
           leading: GestureDetector(
               onTap: () => {
                     Navigator.pop(context),

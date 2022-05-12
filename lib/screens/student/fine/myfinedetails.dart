@@ -22,6 +22,7 @@ class _myfinedetailsState extends State<myfinedetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           leading: GestureDetector(
               onTap: () => {
                     Navigator.pop(context),
@@ -144,7 +145,8 @@ class _myfinedetailsState extends State<myfinedetails> {
               ),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.blue),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
             width: MediaQuery.of(context).size.width * 0.3,
             height: 40,
           ),

@@ -54,7 +54,7 @@ class _studentprofileState extends State<studentprofile> {
               width: double.infinity,
               margin: EdgeInsets.only(bottom: 20, right: 15, left: 15),
               decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.deepPurple,
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(50))),
             ),

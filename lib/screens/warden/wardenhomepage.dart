@@ -65,13 +65,39 @@ class _wardenhomepageState extends State<wardenhomepage> {
                                     builder: (context) => leavepage()))
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("All leaves")),
-                          ),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    //background color of box
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 128, 89, 196),
+                                      // soften the shadow
+                                      //extend the shadow
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                        3.0, // Move to right 10  horizontally
+                                        3.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(25)),
+                              height: 200,
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "All",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Text(
+                                    "leaves",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ],
+                              )),
                         ),
                         GestureDetector(
                           onTap: () => {
@@ -81,13 +107,39 @@ class _wardenhomepageState extends State<wardenhomepage> {
                                     builder: (context) => complaintpage()))
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("All Complaints")),
-                          ),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    //background color of box
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 128, 89, 196),
+                                      // soften the shadow
+                                      //extend the shadow
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                        3.0, // Move to right 10  horizontally
+                                        3.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(25)),
+                              height: 200,
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "All",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Text(
+                                    "Complaints",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ],
+                              )),
                         ),
                       ],
                     ),
@@ -103,13 +155,39 @@ class _wardenhomepageState extends State<wardenhomepage> {
                                     builder: (context) => rooms()))
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Room Details")),
-                          ),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    //background color of box
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 128, 89, 196),
+                                      // soften the shadow
+                                      //extend the shadow
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                        3.0, // Move to right 10  horizontally
+                                        3.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(25)),
+                              height: 200,
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Room",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Text(
+                                    "Details",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ],
+                              )),
                         ),
                         GestureDetector(
                           onTap: () => {
@@ -119,13 +197,39 @@ class _wardenhomepageState extends State<wardenhomepage> {
                                     builder: (context) => finemanagementpage()))
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Center(child: Text("Fine Management")),
-                          ),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    //background color of box
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 128, 89, 196),
+                                      // soften the shadow
+                                      //extend the shadow
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                        3.0, // Move to right 10  horizontally
+                                        3.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(25)),
+                              height: 200,
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Fine",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Text(
+                                    "Management",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ],
+                              )),
                         )
                       ],
                     ),
@@ -141,13 +245,39 @@ class _wardenhomepageState extends State<wardenhomepage> {
                                     builder: (context) => studentpage()))
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(25)),
-                            height: 200,
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Center(child: Text("All Student Details")),
-                          ),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    //background color of box
+                                    BoxShadow(
+                                      color: Color.fromARGB(255, 128, 89, 196),
+                                      // soften the shadow
+                                      //extend the shadow
+                                      spreadRadius: 1.0,
+                                      blurRadius: 5.0,
+                                      offset: Offset(
+                                        3.0, // Move to right 10  horizontally
+                                        3.0, // Move to bottom 10 Vertically
+                                      ),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(25)),
+                              height: 200,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Student",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                  Text(
+                                    "Details",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ],
+                              )),
                         ),
                       ],
                     )

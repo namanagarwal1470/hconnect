@@ -20,6 +20,7 @@ class _studentleaveState extends State<studentleave> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           leading: GestureDetector(
               onTap: () => {
                     Navigator.pop(context),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,7 +49,7 @@ class _LeaveFormState extends State<LeaveForm> {
           width: double.infinity,
           margin: EdgeInsets.only(bottom: 20),
           decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.deepPurple,
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(50))),
         ),
         TextField(
@@ -224,8 +226,9 @@ class _LeaveFormState extends State<LeaveForm> {
         GestureDetector(
           onTap: () {
             final snackBar = SnackBar(
-              content: const Text('Successfully submitted!'),
-              backgroundColor: (Colors.red),
+              content: const Text('Successfully submitted!',
+                  style: TextStyle(color: Colors.white)),
+              backgroundColor: (Colors.deepPurple),
               behavior: SnackBarBehavior.floating,
               duration: Duration(milliseconds: 4000),
             );
@@ -240,7 +243,8 @@ class _LeaveFormState extends State<LeaveForm> {
               ),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.blue),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
             width: MediaQuery.of(context).size.width * 0.3,
             height: 40,
           ),

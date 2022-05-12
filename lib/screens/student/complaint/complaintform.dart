@@ -77,7 +77,7 @@ class _ComplainFormState extends State<ComplainForm> {
           width: double.infinity,
           margin: EdgeInsets.only(bottom: 20),
           decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.deepPurple,
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(50))),
         ),
         Container(
@@ -144,8 +144,9 @@ class _ComplainFormState extends State<ComplainForm> {
           onTap: () {
             getCurrentDate();
             final snackBar = SnackBar(
-              content: const Text('Successfully submitted!'),
-              backgroundColor: (Colors.red),
+              content: const Text('Successfully submitted!',
+                  style: TextStyle(color: Colors.white)),
+              backgroundColor: (Colors.deepPurple),
               behavior: SnackBarBehavior.floating,
               duration: Duration(milliseconds: 4000),
             );
@@ -161,7 +162,8 @@ class _ComplainFormState extends State<ComplainForm> {
               ),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.blue),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
             width: MediaQuery.of(context).size.width * 0.3,
             height: 40,
           ),

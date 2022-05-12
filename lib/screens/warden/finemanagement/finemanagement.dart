@@ -30,7 +30,7 @@ class _finemanagementpageState extends State<finemanagementpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.deepPurple,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -153,7 +153,7 @@ class _finemanagementpageState extends State<finemanagementpage> {
       margin: EdgeInsets.only(top: 20),
       child: Ink(
         decoration: ShapeDecoration(
-          color: Colors.red,
+          color: Colors.deepPurple,
           shape: CircleBorder(),
         ),
         child: IconButton(
@@ -179,7 +179,7 @@ class _finemanagementpageState extends State<finemanagementpage> {
         ),
         child: IconButton(
           icon: Icon(Icons.add),
-          color: Colors.red,
+          color: Colors.deepPurple,
           onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => createfine()));

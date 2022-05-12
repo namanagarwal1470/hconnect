@@ -65,7 +65,7 @@ class _splashState extends State<splash> {
                   height: (MediaQuery.of(context).size.height) * 0.3,
                   width: (MediaQuery.of(context).size.width) * 0.5,
                   decoration: BoxDecoration(
-                      color: Colors.blue[800],
+                      color: Colors.deepPurple,
                       borderRadius:
                           BorderRadius.only(bottomRight: Radius.circular(400))),
                 ),
@@ -79,7 +79,8 @@ class _splashState extends State<splash> {
                     child: Center(
                       child: Text(
                         "H-connect",
-                        style: TextStyle(color: Colors.blue, fontSize: 50),
+                        style:
+                            TextStyle(color: Colors.deepPurple, fontSize: 50),
                       ),
                     ),
                     color: Colors.white)
@@ -92,7 +93,7 @@ class _splashState extends State<splash> {
                   height: (MediaQuery.of(context).size.height) * 0.3,
                   width: (MediaQuery.of(context).size.width) * 0.5,
                   decoration: BoxDecoration(
-                      color: Colors.blue[800],
+                      color: Colors.deepPurple,
                       borderRadius:
                           BorderRadius.only(topLeft: Radius.circular(400))),
                 )

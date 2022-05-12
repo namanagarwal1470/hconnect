@@ -20,6 +20,7 @@ class _mycomplaintdetailsState extends State<mycomplaintdetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           leading: GestureDetector(
               onTap: () => {
                     Navigator.pop(context),
@@ -114,8 +115,11 @@ class _mycomplaintdetailsState extends State<mycomplaintdetails> {
           onTap: () {
             updatedata();
             final snackBar = SnackBar(
-              content: const Text('Complaint resolved!'),
-              backgroundColor: (Colors.red),
+              content: const Text(
+                'Complaint resolved!',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: (Colors.deepPurple),
               behavior: SnackBarBehavior.floating,
               duration: Duration(milliseconds: 2000),
             );
@@ -133,7 +137,8 @@ class _mycomplaintdetailsState extends State<mycomplaintdetails> {
               ),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.blue),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.deepPurple),
             width: MediaQuery.of(context).size.width * 0.3,
             height: 45,
           ),

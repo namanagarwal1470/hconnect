@@ -30,7 +30,7 @@ class _mycomplaintsState extends State<mycomplaints> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.deepPurple,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -146,7 +146,7 @@ class _mycomplaintsState extends State<mycomplaints> {
       margin: EdgeInsets.only(top: 20),
       child: Ink(
         decoration: ShapeDecoration(
-          color: Colors.red,
+          color: Colors.deepPurple,
           shape: CircleBorder(),
         ),
         child: IconButton(
@@ -172,7 +172,7 @@ class _mycomplaintsState extends State<mycomplaints> {
         ),
         child: IconButton(
           icon: Icon(Icons.add),
-          color: Colors.red,
+          color: Colors.deepPurple,
           onPressed: () {
             Navigator.push(
                 context,

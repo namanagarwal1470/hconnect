@@ -13,7 +13,9 @@ class _wardenuiState extends State<wardenui> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+          backgroundColor: Colors.deepPurple,
           leading: GestureDetector(
               onTap: () => {
                     Navigator.pop(context),
