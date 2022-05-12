@@ -40,6 +40,7 @@ class _wardenstudentdetailsState extends State<wardenstudentdetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          title: Text(name),
           leading: GestureDetector(
               onTap: () => {
                     Navigator.pop(context),

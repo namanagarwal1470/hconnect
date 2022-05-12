@@ -356,8 +356,8 @@ class _studenthomepageState extends State<studenthomepage> {
           child: Center(
             child: IconButton(
               padding: EdgeInsets.all(5),
-              icon: Icon(Icons.person),
-              iconSize: 30,
+              icon: Icon(FontAwesomeIcons.user),
+              iconSize: 20,
               color: Colors.deepPurple,
               onPressed: () {
                 Navigator.push(

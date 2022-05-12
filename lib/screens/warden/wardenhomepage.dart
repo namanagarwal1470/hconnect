@@ -265,8 +265,8 @@ class _wardenhomepageState extends State<wardenhomepage> {
           child: Center(
             child: IconButton(
               padding: EdgeInsets.all(5),
-              icon: Icon(Icons.verified_sharp),
-              iconSize: 15,
+              icon: Icon(FontAwesomeIcons.user),
+              iconSize: 20,
               color: Colors.deepPurple,
               onPressed: () {
                 Navigator.push(

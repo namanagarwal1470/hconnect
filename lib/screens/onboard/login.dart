@@ -20,7 +20,6 @@ class _loginpageState extends State<loginpage> {
   List usertype = [];
   List name = [];
 
-  bool showerror = false;
   Map<String, String> k = {};
 
   @override
@@ -33,99 +32,102 @@ class _loginpageState extends State<loginpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      children: [
-        Container(
-          height: (MediaQuery.of(context).size.height),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
-          child: ListView(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              headline(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              auth(enrollno, context, "Id", 0),
-              auth(password, context, "Password", 1),
-              SizedBox(height: 10),
-              showerror
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Wrong password entered",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 15,
-                            )),
-                      ],
-                    )
-                  : Text(""),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: Colors.deepPurple,
+      body: ListView(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                margin: EdgeInsets.only(top: 25),
+                height: MediaQuery.of(context).size.width * 0.3,
+                width: MediaQuery.of(context).size.width * 0.4,
+                child:
+                    Image(image: AssetImage("assets/images/jaypeelogo.png"))),
+            SizedBox(height: 20),
+            Text(
+              "H-Connect",
+              style: TextStyle(color: Colors.white, fontSize: 40),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              height: 350,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  loginbutton(context),
+                  SizedBox(height: 50),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 30,
+                      right: 30,
+                    ),
+                    child: TextField(
+                      controller: enrollno,
+                      style: TextStyle(fontSize: 20),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(30.0),
+                            ),
+                          ),
+                          filled: true,
+                          hintStyle: new TextStyle(color: Colors.grey[700]),
+                          labelText: "User Id",
+                          hintText: "User Id",
+                          fillColor: Colors.white70),
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 30,
+                      right: 30,
+                    ),
+                    child: TextField(
+                      obscureText: true,
+                      controller: password,
+                      style: TextStyle(fontSize: 20),
+                      decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(30.0),
+                            ),
+                          ),
+                          filled: true,
+                          hintStyle: new TextStyle(color: Colors.grey[700]),
+                          labelText: "Password",
+                          hintText: "Password",
+                          fillColor: Colors.white70),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  GestureDetector(
+                    onTap: () {
+                      routenavigator();
+                    },
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.deepPurple),
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: 40,
+                    ),
+                  ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ],
-    ));
-  }
-
-  Widget headline() {
-    return Container(
-        margin: EdgeInsets.all(20),
-        child: Center(
-          child: Text(
-            "H-Connect",
-            style: TextStyle(color: Colors.blue, fontSize: 50),
-          ),
-        ));
-  }
-
-  Widget auth(TextEditingController enrollcontroller, BuildContext context,
-      String text, int k) {
-    return Padding(
-      padding: EdgeInsets.only(top: 15, left: 30, right: 30, bottom: 15),
-      child: TextField(
-        controller: enrollcontroller,
-        style: TextStyle(fontSize: 20),
-        decoration: new InputDecoration(
-            border: new OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                const Radius.circular(30.0),
-              ),
             ),
-            filled: true,
-            hintStyle: new TextStyle(color: Colors.grey[700]),
-            labelText: text,
-            hintText: text,
-            fillColor: Colors.white70),
-        obscureText: k == 1 ? true : false,
-      ),
-    );
-  }
-
-  Widget loginbutton(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        routenavigator();
-      },
-      child: Container(
-        child: Center(
-          child: Text(
-            "Login",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
+            SizedBox(height: 100),
+          ],
         ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.blue),
-        width: MediaQuery.of(context).size.width * 0.3,
-        height: 40,
-      ),
+      ]),
     );
   }
 
@@ -188,7 +190,14 @@ class _loginpageState extends State<loginpage> {
           }
         } else {
           setState(() {
-            showerror = true;
+            final snackBar = SnackBar(
+              content: const Text('Wrong Password entered!'),
+              backgroundColor: (Colors.red),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(milliseconds: 4000),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            password.clear();
           });
         }
       }
