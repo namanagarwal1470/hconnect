@@ -1,6 +1,7 @@
 # hconnect
 
-A new Flutter project.
+A new Flutter project based on hostels for colleges for both admin/warden
+ and student
 
 ## Getting Started
 
