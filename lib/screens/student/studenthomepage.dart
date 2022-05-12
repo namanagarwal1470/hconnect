@@ -326,7 +326,7 @@ class _studenthomepageState extends State<studenthomepage> {
                   child: Center(
                     child: IconButton(
                       padding: EdgeInsets.all(5),
-                      icon: Icon(FontAwesomeIcons.user),
+                      icon: Icon(FontAwesomeIcons.arrowRightFromBracket),
                       color: Colors.deepPurple,
                       onPressed: () {},
                     ),
@@ -360,7 +360,7 @@ class _studenthomepageState extends State<studenthomepage> {
                   child: Center(
                     child: IconButton(
                       padding: EdgeInsets.all(5),
-                      icon: Icon(FontAwesomeIcons.user),
+                      icon: Icon(FontAwesomeIcons.fileInvoice),
                       color: Colors.deepPurple,
                       onPressed: () {},
                     ),
@@ -394,7 +394,7 @@ class _studenthomepageState extends State<studenthomepage> {
                   child: Center(
                     child: IconButton(
                       padding: EdgeInsets.all(5),
-                      icon: Icon(FontAwesomeIcons.user),
+                      icon: Icon(FontAwesomeIcons.moneyBillTransfer),
                       color: Colors.deepPurple,
                       onPressed: () {},
                     ),
